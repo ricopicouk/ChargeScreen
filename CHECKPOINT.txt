@@ -1,0 +1,16 @@
+Beta 2 checkpoint
+
+This folder is a copy of the current dashboard firmware after the solar and
+settings-screen polish pass.
+
+Confirmed state:
+- Victron solar BLE decrypt/parsing is retained
+- solar page uses the warm amber styling
+- shunt demo values are 69%, 14.7 V, 30.0 A, 441 W, and 27.2 Ah
+- demo mode is saved from the on-device settings screen
+- screen rotation is saved from the on-device settings screen
+- settings menu has WiFi, demo mode, rotation, and back controls
+- WiFi can be toggled on and off from settings
+- VE.Direct and accelerometer rotation code are not included
+
+Private settings from include/config.h are intentionally not included.
