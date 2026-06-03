@@ -1,0 +1,4 @@
+**/.pio/
+**/.platformio-core/
+**/.vscode/
+include/config.h
