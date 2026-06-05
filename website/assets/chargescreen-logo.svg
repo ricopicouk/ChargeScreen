@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">ChargeScreen logo</title>
+  <desc id="desc">A circular display with a solar arc and ChargeScreen initials.</desc>
+  <defs>
+    <linearGradient id="face" x1="56" y1="42" x2="196" y2="218" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1d4650"/>
+      <stop offset="1" stop-color="#091418"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="52" fill="#fbf8ef"/>
+  <path d="M111 218h34v30h-34z" fill="#252b2e"/>
+  <circle cx="128" cy="120" r="104" fill="#11181b"/>
+  <circle cx="128" cy="120" r="91" fill="url(#face)"/>
+  <path d="M48 120a80 80 0 0 1 128-64" fill="none" stroke="#f5b84b" stroke-width="12" stroke-linecap="round"/>
+  <path d="M176 56a80 80 0 0 1 30 84" fill="none" stroke="#38bf72" stroke-width="12" stroke-linecap="round"/>
+  <path d="M206 140a80 80 0 0 1-62 58" fill="none" stroke="#e55342" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="128" cy="120" r="66" fill="#10232b" stroke="#7edfeb" stroke-width="3"/>
+  <path d="M90 106c0-19 13-33 32-33 15 0 27 8 31 21l-20 6c-2-5-6-8-12-8-8 0-13 6-13 14v28c0 8 5 14 14 14 6 0 11-3 13-9l20 6c-5 14-17 22-33 22-19 0-32-14-32-33z" fill="#effcff"/>
+  <path d="M139 111h31v17h-31z" fill="#38bf72"/>
+  <path d="M90 181h76" stroke="#f5b84b" stroke-width="8" stroke-linecap="round"/>
+</svg>

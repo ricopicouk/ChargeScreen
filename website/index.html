@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChargeScreen Firmware</title>
+  <meta name="description" content="ChargeScreen firmware downloads and setup guide for the ESP32-C3 round battery dashboard.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="ChargeScreen home">
+        <img src="assets/chargescreen-logo.svg" alt="" width="54" height="54">
+        <span>ChargeScreen</span>
+      </a>
+      <div class="nav-links">
+        <a href="#use">Use</a>
+        <a href="#victron">Victron keys</a>
+        <a href="#ble">BLE capture</a>
+        <a href="#downloads">Firmware</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">ESP32-C3 round display firmware</p>
+        <h1>ChargeScreen</h1>
+        <p class="lede">A small standalone dashboard for Victron Bluetooth data, solar status, and battery experiments. Built for the JCZN ESP32-2424S012 round display.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#downloads">Download latest</a>
+          <a class="button secondary" href="#use">Setup guide</a>
+        </div>
+      </div>
+      <div class="device-art" aria-label="ChargeScreen round display illustration">
+        <div class="screen">
+          <div class="screen-ring"></div>
+          <div class="screen-title">ChargeScreen</div>
+          <div class="screen-value">268 W</div>
+          <div class="screen-grid">
+            <span>14.4V</span>
+            <span>18.6A</span>
+          </div>
+          <div class="screen-pill">Victron</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="notice">
+      <strong>Current build: beta 4.13</strong>
+      <span>Use the latest build unless you are testing a specific older version.</span>
+    </section>
+
+    <section id="use" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Getting started</p>
+        <h2>How to use ChargeScreen</h2>
+      </div>
+      <div class="steps">
+        <article>
+          <span class="step-number">1</span>
+          <h3>Flash the firmware</h3>
+          <p>Install the latest firmware for the JCZN ESP32-2424S012 board. After flashing, keep the device powered while it restarts.</p>
+        </article>
+        <article>
+          <span class="step-number">2</span>
+          <h3>Open settings</h3>
+          <p>Tap the cog on the bottom of the round display, then tap WiFi. Join the temporary hotspot named <strong>ChargeScreen</strong>.</p>
+        </article>
+        <article>
+          <span class="step-number">3</span>
+          <h3>Visit the setup page</h3>
+          <p>Open <strong>http://192.168.4.1/</strong> on your phone. The page is also set up as a captive portal, so many phones will offer to open it automatically.</p>
+        </article>
+        <article>
+          <span class="step-number">4</span>
+          <h3>Save your settings</h3>
+          <p>Paste Victron Instant Readout keys, select sources, set screen rotation, dimming, screen timeout, demo values, and solar panel watts.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="victron" class="section split-section">
+      <div class="section-heading">
+        <p class="eyebrow">Victron setup</p>
+        <h2>Getting the encryption codes</h2>
+      </div>
+      <div class="copy-block">
+        <p>ChargeScreen reads Victron Instant Readout Bluetooth adverts. Those adverts are encrypted, so each Victron device needs its own Instant Readout encryption data.</p>
+        <ol>
+          <li>Open the VictronConnect app near your SmartShunt, BMV, SmartSolar, or other supported Victron Smart device.</li>
+          <li>Connect to the Victron device over Bluetooth.</li>
+          <li>Open settings, tap the three dots, then open Product info.</li>
+          <li>Enable Instant Readout if it is not already enabled.</li>
+          <li>Find Instant Readout details or encryption data and choose Show.</li>
+          <li>Copy the MAC address and encryption key into the ChargeScreen setup page.</li>
+        </ol>
+        <p class="small-note">Victron documents Instant Readout in the VictronConnect manual. The exact wording can vary slightly between app versions and device types.</p>
+        <a class="text-link" href="https://www.victronenergy.com/media/pg/VictronConnect_Manual/en/stored-trends---instant-readout.html">VictronConnect Instant Readout manual</a>
+      </div>
+    </section>
+
+    <section id="ble" class="section split-section alt">
+      <div class="section-heading">
+        <p class="eyebrow">Compatibility testing</p>
+        <h2>Using BLE capture</h2>
+      </div>
+      <div class="copy-block">
+        <p>BLE capture records nearby Bluetooth Low Energy adverts for 5 minutes. It is useful when adding support for batteries or accessories that do not decode correctly yet.</p>
+        <ol>
+          <li>Put ChargeScreen close to the battery or Bluetooth device you want to identify.</li>
+          <li>Open the ChargeScreen WiFi setup page.</li>
+          <li>Press Start 5 Minute BLE Capture.</li>
+          <li>Wait for the capture to finish, or stop it early from the screen or webpage.</li>
+          <li>Download the CSV file when it is ready.</li>
+          <li>Email the CSV and any battery app Bluetooth encryption codes to <a href="mailto:chargescreen.ricopicouk@gmail.com">chargescreen.ricopicouk@gmail.com</a>.</li>
+        </ol>
+        <p class="small-note">Privacy note: the CSV may include packets from nearby watches, phones, TVs, sensors, and batteries. Most of it is encrypted or only useful to the original device, but it will still appear in the file. Battery encryption codes are only used to decode the battery packets in the capture.</p>
+      </div>
+    </section>
+
+    <section id="downloads" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Firmware</p>
+        <h2>Downloads and changes</h2>
+      </div>
+      <div class="download-panel">
+        <div class="latest">
+          <div>
+            <p class="eyebrow">Latest</p>
+            <h3>beta 4.13</h3>
+            <p>WiFi idle timeout fix, beta 4.12 solar wattage changes, and the latest web settings flow.</p>
+          </div>
+          <a class="button primary" href="firmware/ChargeScreen-beta4.13.bin" download>Download beta 4.13</a>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Build</th>
+                <th>Status</th>
+                <th>Notes</th>
+                <th>Download</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>beta 4.13</td>
+                <td><span class="tag good">Latest</span></td>
+                <td>Fixes WiFi idle timeout being kept alive by webpage polling, and refreshes the UI when WiFi turns off.</td>
+                <td><a href="firmware/ChargeScreen-beta4.13.bin" download>Firmware</a></td>
+              </tr>
+              <tr>
+                <td>beta 4.12</td>
+                <td><span class="tag">Recent</span></td>
+                <td>Restores configurable solar panel wattage for the solar arc scale, with a 30W minimum.</td>
+                <td><a href="firmware/ChargeScreen-beta4.12.bin" download>Firmware</a></td>
+              </tr>
+              <tr>
+                <td>beta 4.10</td>
+                <td><span class="tag">Archive</span></td>
+                <td>Improved web settings layout with Victron, Eco-Worthy, sources, device settings, demo values, BLE capture, and firmware upload.</td>
+                <td><a href="firmware/ChargeScreen-beta4.10.bin" download>Firmware</a></td>
+              </tr>
+              <tr>
+                <td>beta 4.08</td>
+                <td><span class="tag">Archive</span></td>
+                <td>BLE capture screen polish and display layout refinements.</td>
+                <td><a href="firmware/ChargeScreen-beta4.08.bin" download>Firmware</a></td>
+              </tr>
+              <tr>
+                <td>beta 4.06</td>
+                <td><span class="tag">Archive</span></td>
+                <td>Captive portal and web setup improvements for easier phone access.</td>
+                <td><a href="firmware/ChargeScreen-beta4.06.bin" download>Firmware</a></td>
+              </tr>
+              <tr>
+                <td>beta 4.04</td>
+                <td><span class="tag">Archive</span></td>
+                <td>BLE capture workflow and on-device capture display improvements.</td>
+                <td><a href="firmware/ChargeScreen-beta4.04.bin" download>Firmware</a></td>
+              </tr>
+              <tr>
+                <td>beta 4.02</td>
+                <td><span class="tag">Archive</span></td>
+                <td>Web firmware update route verified on device, with early beta 4 settings work.</td>
+                <td><a href="firmware/ChargeScreen-beta4.02.bin" download>Firmware</a></td>
+              </tr>
+              <tr>
+                <td>beta 4.01</td>
+                <td><span class="tag">Archive</span></td>
+                <td>Early beta 4 build with web update support and partitioned firmware layout.</td>
+                <td><a href="firmware/ChargeScreen-beta4.01.bin" download>Firmware</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact">
+      <div class="section-heading">
+        <p class="eyebrow">A quick warning</p>
+        <h2>Firmware updates</h2>
+      </div>
+      <p>During a web firmware update, keep the device powered and wait for it to restart. Removing power during an update can leave the device needing a USB reflash.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>ChargeScreen firmware</span>
+    <a href="mailto:chargescreen.ricopicouk@gmail.com">chargescreen.ricopicouk@gmail.com</a>
+  </footer>
+</body>
+</html>
