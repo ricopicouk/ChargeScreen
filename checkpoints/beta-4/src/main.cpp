@@ -17,7 +17,10 @@
 
 static constexpr const char *SETTINGS_AP_SSID = "ChargeScreen";
 static constexpr const char *SETTINGS_AP_PASSWORD = "";
-static constexpr float VICTRON_SOLAR_MAX_POWER_W = 500.0f;
+static constexpr uint16_t DEFAULT_SOLAR_ARRAY_WATTS = 500;
+static constexpr uint16_t MIN_SOLAR_ARRAY_WATTS = 30;
+static constexpr uint16_t MAX_SOLAR_ARRAY_WATTS = 2000;
+static constexpr uint16_t SOLAR_ARRAY_WATTS_STEP = 5;
 static constexpr uint16_t SCREEN_TIMEOUT_NEVER = 0;
 static constexpr uint16_t DEFAULT_SCREEN_TIMEOUT_SECONDS = 60;
 static constexpr uint16_t MIN_SCREEN_TIMEOUT_SECONDS = 10;
@@ -87,9 +90,10 @@ static constexpr int16_t SETTINGS_LABEL_W = 118;
 static constexpr int16_t SETTINGS_VALUE_X = 164;
 static constexpr int16_t SETTINGS_VALUE_W = 32;
 static constexpr int16_t SETTINGS_ROW_H = 28;
-static constexpr int16_t SETTINGS_WIFI_Y = 78;
-static constexpr int16_t SETTINGS_DEMO_Y = 116;
-static constexpr int16_t SETTINGS_ROTATION_Y = 154;
+static constexpr int16_t SETTINGS_WIFI_Y = 66;
+static constexpr int16_t SETTINGS_SOLAR_WATTS_Y = 100;
+static constexpr int16_t SETTINGS_DEMO_Y = 134;
+static constexpr int16_t SETTINGS_ROTATION_Y = 168;
 static constexpr int16_t SETTINGS_TIMEOUT_Y = 62;
 static constexpr int16_t SETTINGS_BATTERY_Y = 98;
 static constexpr int16_t SETTINGS_LABELS_Y = 136;
@@ -223,6 +227,7 @@ static float demoSolarPvPower = 268.0f;
 static float demoSolarBatteryVoltage = 14.42f;
 static float demoSolarChargeCurrent = 18.6f;
 static float demoSolarYieldKwh = 1.27f;
+static uint16_t solarArrayWatts = DEFAULT_SOLAR_ARRAY_WATTS;
 static String settingsMessage;
 static bool screenAwake = true;
 static uint32_t lastTouchActivityMs = 0;
@@ -498,6 +503,16 @@ static String batteryModeText() {
   return ecoWorthyBatteryMode ? "EcoW" : "Victron";
 }
 
+static uint16_t sanitiseSolarArrayWatts(int value) {
+  if (value < MIN_SOLAR_ARRAY_WATTS) {
+    return MIN_SOLAR_ARRAY_WATTS;
+  }
+  if (value > MAX_SOLAR_ARRAY_WATTS) {
+    return MAX_SOLAR_ARRAY_WATTS;
+  }
+  return static_cast<uint16_t>(value);
+}
+
 static uint16_t sanitiseScreenTimeoutSeconds(int value) {
   if (value == SCREEN_TIMEOUT_NEVER) {
     return SCREEN_TIMEOUT_NEVER;
@@ -557,6 +572,12 @@ static void loadStoredSecrets() {
   demoModeEnabled = secrets.getBool("demo_mode", DEMO_MODE);
   ecoWorthyBatteryMode = secrets.getBool("battery_eco", false);
   showValueLabels = secrets.getBool("value_labels", true);
+  solarArrayWatts = secrets.getUShort("solar_watts", DEFAULT_SOLAR_ARRAY_WATTS);
+  uint16_t sanitisedSolarArrayWatts = sanitiseSolarArrayWatts(solarArrayWatts);
+  if (sanitisedSolarArrayWatts != solarArrayWatts) {
+    solarArrayWatts = sanitisedSolarArrayWatts;
+    secrets.putUShort("solar_watts", solarArrayWatts);
+  }
   demoBatterySoc = secrets.getFloat("demo_soc", 69.0f);
   demoBatteryVoltage = secrets.getFloat("demo_volt", 14.7f);
   demoBatteryCurrent = secrets.getFloat("demo_curr", 30.0f);
@@ -1328,6 +1349,9 @@ static void stopCapture(const char *reason) {
   }
 
   noteTouchActivity();
+  if (settingsServerActive) {
+    lastSettingsServerActivityMs = millis();
+  }
   capturePageDrawn = false;
   Serial.printf("BLE capture stopped: %s packets=%lu file=%s\n",
                 reason,
@@ -1755,6 +1779,15 @@ static String settingsPageHtml(const String &message = "") {
   html += ecoWorthyBatteryMode ? F(" selected") : F("");
   html += F(">Eco-Worthy</option></select>");
   html += F("<h2>Settings</h2>");
+  html += F("<label for='solar_watts'>Solar panel watts</label><input id='solar_watts' name='solar_watts' type='number' min='");
+  html += MIN_SOLAR_ARRAY_WATTS;
+  html += F("' max='");
+  html += MAX_SOLAR_ARRAY_WATTS;
+  html += F("' step='");
+  html += SOLAR_ARRAY_WATTS_STEP;
+  html += F("' value='");
+  html += solarArrayWatts;
+  html += F("'>");
   html += F("<label for='screen_timeout'>Screen off delay</label><select id='screen_timeout' name='screen_timeout'>");
   html += F("<option value='10'");
   html += screenTimeoutSeconds == 10 ? F(" selected") : F("");
@@ -1862,10 +1895,12 @@ static void handleSettingsSave() {
   String shuntKey = normaliseKeyHex(settingsServer.arg("shunt_key"));
   String solarKey = normaliseKeyHex(settingsServer.arg("solar_key"));
   String ecoKey = normalisePassword(settingsServer.arg("eco_key"));
+  String solarWattsText = settingsServer.arg("solar_watts");
   String screenTimeoutText = settingsServer.arg("screen_timeout");
   String batteryModeText = settingsServer.arg("battery_mode");
   String rotationText = settingsServer.arg("screen_rotation");
   String dimmingText = settingsServer.arg("dimming");
+  solarWattsText.trim();
   screenTimeoutText.trim();
   batteryModeText.trim();
   rotationText.trim();
@@ -1895,6 +1930,22 @@ static void handleSettingsSave() {
     if (isValidEcoWorthyPassword(ecoKey)) {
       storedEcoWorthyPassword = ecoKey;
       secrets.putString("eco_key", storedEcoWorthyPassword);
+      saved = true;
+    } else {
+      invalid = true;
+    }
+  }
+
+  if (solarWattsText.length()) {
+    int requestedWatts = solarWattsText.toInt();
+    if (requestedWatts >= MIN_SOLAR_ARRAY_WATTS && requestedWatts <= MAX_SOLAR_ARRAY_WATTS) {
+      uint16_t nextWatts = sanitiseSolarArrayWatts(requestedWatts);
+      if (nextWatts != solarArrayWatts) {
+        solarArrayWatts = nextWatts;
+        secrets.putUShort("solar_watts", solarArrayWatts);
+        pageTwoDrawn = false;
+        solarValuesDrawn = false;
+      }
       saved = true;
     } else {
       invalid = true;
@@ -2162,7 +2213,6 @@ static void handleCaptureDownload() {
 }
 
 static void handleCaptureStatus() {
-  noteSettingsServerActivity();
   settingsServer.sendHeader("Cache-Control", "no-store");
   settingsServer.send(200, "application/json", captureStatusJson());
 }
@@ -2240,6 +2290,7 @@ static void stopSettingsServer() {
   WiFi.mode(WIFI_OFF);
   settingsServerActive = false;
   settingsMessage = "WiFi off";
+  invalidateScreens();
   drawCurrentPage(true);
 }
 
@@ -2250,6 +2301,10 @@ static void updateSettingsServer() {
 
   captiveDnsServer.processNextRequest();
   settingsServer.handleClient();
+  if (captureActive) {
+    lastSettingsServerActivityMs = millis();
+    return;
+  }
   if (millis() - lastSettingsServerActivityMs > SETTINGS_SERVER_IDLE_MS) {
     stopSettingsServer();
   }
@@ -2278,8 +2333,27 @@ static void drawSettingsPage(bool force = false) {
     drawAaCentered(AA_FONT_SMALL, value, SETTINGS_VALUE_X + SETTINGS_VALUE_W / 2, y - 1, WHITE);
   };
 
+  auto drawStepperRow = [](int16_t y, const String &label, const String &value) {
+    gfx->drawRect(SETTINGS_ROW_X, y, 92, SETTINGS_ROW_H, 0x6B4D);
+    gfx->fillRect(SETTINGS_ROW_X + 1, y + 1, 90, SETTINGS_ROW_H - 2, 0x01EB);
+    drawAaCentered(AA_FONT_SMALL, label, SETTINGS_ROW_X + 46, y - 1, WHITE);
+
+    gfx->drawRect(138, y, 24, SETTINGS_ROW_H, 0x6B4D);
+    gfx->fillRect(139, y + 1, 22, SETTINGS_ROW_H - 2, 0x01EB);
+    drawAaCentered(AA_FONT_SMALL, "-", 150, y - 1, WHITE);
+
+    gfx->drawRect(164, y, 36, SETTINGS_ROW_H, 0x6B4D);
+    gfx->fillRect(165, y + 1, 34, SETTINGS_ROW_H - 2, 0x01EB);
+    drawAaCentered(AA_FONT_SMALL, value, 182, y - 1, WHITE);
+
+    gfx->drawRect(202, y, 24, SETTINGS_ROW_H, 0x6B4D);
+    gfx->fillRect(203, y + 1, 22, SETTINGS_ROW_H - 2, 0x01EB);
+    drawAaCentered(AA_FONT_SMALL, "+", 214, y - 1, WHITE);
+  };
+
   if (settingsPageIndex == 0) {
     drawRow(SETTINGS_WIFI_Y, "WiFi", settingsServerActive ? "On" : "-", settingsServerActive);
+    drawStepperRow(SETTINGS_SOLAR_WATTS_Y, "Solar W", String(solarArrayWatts));
     drawRow(SETTINGS_DEMO_Y, "Demo mode", demoModeEnabled ? "On" : "-", demoModeEnabled);
     drawRow(SETTINGS_ROTATION_Y, "Rotation", String(screenRotationDegrees), false);
   } else {
@@ -2411,7 +2485,7 @@ static void drawPageTwoAtOffset(int16_t offsetX) {
   SolarStats stats = displaySolarStats();
   String statusText = displaySolarStatusText(stats);
   String powerText = stats.valid ? formatWattsOrDash(stats.pvPower) : "-- W";
-  float maxPower = max(1.0f, static_cast<float>(VICTRON_SOLAR_MAX_POWER_W));
+  float maxPower = max(1.0f, static_cast<float>(solarArrayWatts));
   float ringPower = stats.valid && !isnan(stats.pvPower)
                         ? constrain(stats.pvPower, 0.0f, maxPower)
                         : 0.0f;
@@ -2728,6 +2802,22 @@ static void advanceScreenTimeoutSeconds() {
   drawCurrentPage(true);
 }
 
+static void adjustSolarArrayWatts(int deltaWatts) {
+  uint16_t nextWatts = sanitiseSolarArrayWatts(static_cast<int>(solarArrayWatts) + deltaWatts);
+  if (nextWatts == solarArrayWatts) {
+    return;
+  }
+
+  solarArrayWatts = nextWatts;
+  secrets.putUShort("solar_watts", solarArrayWatts);
+  pageTwoDrawn = false;
+  solarValuesDrawn = false;
+  settingsMessage = String("Solar ") + String(solarArrayWatts) + "W";
+  settingsPageDrawn = false;
+  noteTouchActivity();
+  drawCurrentPage(true);
+}
+
 static void cycleBacklightLevel() {
   backlightLevel = sanitiseBacklightLevel(backlightLevel + 1);
   secrets.putUChar("backlight", backlightLevel);
@@ -2829,6 +2919,16 @@ static void handleTap(int16_t x, int16_t y) {
       } else {
         startSettingsServer();
       }
+      return;
+    }
+
+    if (pointInRect(x, y, 138, SETTINGS_SOLAR_WATTS_Y, 24, SETTINGS_ROW_H)) {
+      adjustSolarArrayWatts(-SOLAR_ARRAY_WATTS_STEP);
+      return;
+    }
+
+    if (pointInRect(x, y, 202, SETTINGS_SOLAR_WATTS_Y, 24, SETTINGS_ROW_H)) {
+      adjustSolarArrayWatts(SOLAR_ARRAY_WATTS_STEP);
       return;
     }
 
