@@ -1,0 +1,84 @@
+media:
+  input: docs/assets
+  output: /assets
+
+content:
+  - name: site
+    label: ChargeScreen website
+    type: file
+    path: docs/site-content.json
+    format: json
+    fields:
+      - name: firmware
+        label: Latest firmware
+        type: object
+        fields:
+          - name: version
+            label: Version label
+            type: string
+            required: true
+            description: "Example: beta 4.17"
+          - name: download_url
+            label: Firmware download URL
+            type: string
+            required: true
+          - name: summary
+            label: Short release summary
+            type: text
+            required: true
+          - name: changes
+            label: Release table changes
+            type: text
+            required: true
+      - name: contact
+        label: Email addresses
+        type: object
+        fields:
+          - name: general_email
+            label: General contact email
+            type: string
+            required: true
+          - name: ble_email
+            label: BLE capture email
+            type: string
+            required: true
+      - name: instructions
+        label: Instructions
+        type: object
+        fields:
+          - name: power
+            label: Power-on instructions
+            type: text
+            required: true
+          - name: victron_intro
+            label: Victron introduction
+            type: text
+            required: true
+          - name: victron_first_step
+            label: First Victron step
+            type: text
+            required: true
+          - name: ble_intro
+            label: BLE capture introduction
+            type: text
+            required: true
+          - name: ble_privacy
+            label: BLE privacy note
+            type: text
+            required: true
+      - name: purchase
+        label: Premade screen
+        type: object
+        fields:
+          - name: text
+            label: Purchase description
+            type: text
+            required: true
+          - name: url
+            label: Purchase link
+            type: string
+            required: true
+          - name: button_text
+            label: Purchase button text
+            type: string
+            required: true

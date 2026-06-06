@@ -1,0 +1,24 @@
+{
+  "firmware": {
+    "version": "beta 4.16",
+    "download_url": "https://github.com/ricopicouk/ChargeScreen/releases/download/v4.16-beta/Beta.4.16.bin",
+    "summary": "Adds the optional battery value grid, a third settings page, updated setup guidance, and an improved firmware-update reconnect screen.",
+    "changes": "Adds the battery value grid and grid toggle, three settings pages, updated WiFi-page instructions and contacts, and a clearer post-update reconnect flow."
+  },
+  "contact": {
+    "general_email": "contact@chargescreen.co.uk",
+    "ble_email": "blecapture@chargescreen.co.uk"
+  },
+  "instructions": {
+    "power": "Power ChargeScreen using USB-C or the rear connector. If using the rear connector, plug it in carefully with the red wire closest to the USB-C port. Follow this position, not the cable colours: voltage and ground use the opposite colours to the usual convention. The tiny JST 1.25 connector was left this way because depinning it risked damaging the plug.",
+    "victron_intro": "ChargeScreen reads Victron Instant Readout Bluetooth adverts. Those adverts are encrypted, so each Victron device needs its own Instant Readout encryption data.",
+    "victron_first_step": "Open the VictronConnect app near your Victron Shunt or Victron MPPT solar controller.",
+    "ble_intro": "BLE capture records nearby Bluetooth Low Energy adverts for 5 minutes. It is useful when adding support for batteries or accessories that do not decode correctly yet.",
+    "ble_privacy": "Privacy note: the CSV may include packets from nearby watches, phones, TVs, sensors, and batteries. Most of it is encrypted or only useful to the original device, but it will still appear in the file. Battery encryption codes are only used to decode the battery packets in the capture."
+  },
+  "purchase": {
+    "text": "ChargeScreen units are available premade and supplied with the firmware already installed. Visit the T6 Forum project thread for availability, discussion, and ordering details.",
+    "url": "https://www.t6forum.com/threads/standalone-esp32-ble-battery-display-for-victron-systems.66515/",
+    "button_text": "View the T6 Forum thread"
+  }
+}
