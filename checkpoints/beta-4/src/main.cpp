@@ -94,10 +94,11 @@ static constexpr int16_t SETTINGS_WIFI_Y = 66;
 static constexpr int16_t SETTINGS_SOLAR_WATTS_Y = 100;
 static constexpr int16_t SETTINGS_DEMO_Y = 134;
 static constexpr int16_t SETTINGS_ROTATION_Y = 168;
-static constexpr int16_t SETTINGS_TIMEOUT_Y = 62;
-static constexpr int16_t SETTINGS_BATTERY_Y = 98;
-static constexpr int16_t SETTINGS_LABELS_Y = 136;
-static constexpr int16_t SETTINGS_DIMMING_Y = 172;
+static constexpr int16_t SETTINGS_TIMEOUT_Y = 76;
+static constexpr int16_t SETTINGS_BATTERY_Y = 116;
+static constexpr int16_t SETTINGS_DIMMING_Y = 156;
+static constexpr int16_t SETTINGS_LABELS_Y = 98;
+static constexpr int16_t SETTINGS_GRID_Y = 136;
 static constexpr int16_t ROTATE_BUTTON_X = 70;
 static constexpr int16_t ROTATE_BUTTON_Y = 68;
 static constexpr int16_t ROTATE_BUTTON_W = 100;
@@ -215,6 +216,7 @@ static String storedEcoWorthyPassword;
 static bool demoModeEnabled = DEMO_MODE;
 static bool ecoWorthyBatteryMode = false;
 static bool showValueLabels = true;
+static bool showValueGrid = true;
 static uint16_t screenTimeoutSeconds = DEFAULT_SCREEN_TIMEOUT_SECONDS;
 static uint8_t backlightLevel = BACKLIGHT_LEVEL_MAX;
 static int screenRotationDegrees = DISPLAY_ROTATION * 90;
@@ -572,6 +574,7 @@ static void loadStoredSecrets() {
   demoModeEnabled = secrets.getBool("demo_mode", DEMO_MODE);
   ecoWorthyBatteryMode = secrets.getBool("battery_eco", false);
   showValueLabels = secrets.getBool("value_labels", true);
+  showValueGrid = secrets.getBool("value_grid", true);
   solarArrayWatts = secrets.getUShort("solar_watts", DEFAULT_SOLAR_ARRAY_WATTS);
   uint16_t sanitisedSolarArrayWatts = sanitiseSolarArrayWatts(solarArrayWatts);
   if (sanitisedSolarArrayWatts != solarArrayWatts) {
@@ -1732,7 +1735,7 @@ static bool looksLikeEsp32FirmwareChunk(const uint8_t *data, size_t len) {
 
 static String settingsPageHtml(const String &message = "") {
   String html;
-  html.reserve(8200);
+  html.reserve(11000);
   html += F("<!doctype html><html><head><meta name='viewport' content='width=device-width,initial-scale=1'>");
   html += F("<meta http-equiv='Cache-Control' content='no-store'>");
   html += F("<title>ChargeScreen Setup</title><style>");
@@ -1746,7 +1749,7 @@ static String settingsPageHtml(const String &message = "") {
   html += F("button:disabled{opacity:.65}.msg{padding:12px;background:#123345;margin:12px 0}");
   html += F(".hint,.version{color:#b8cad2;font-size:14px;line-height:1.45}.version{margin-top:22px;text-align:center}.split{display:grid;gap:10px;margin-top:8px}</style></head><body><main>");
   html += F("<h1>ChargeScreen</h1>");
-  html += F("<p class='version'><a href='mailto:chargescreen.ricopicouk@gmail.com' style='color:#8fe6ff'>Chargescreen.ricopicouk@gmail.com</a></p>");
+  html += F("<p class='version'><a href='mailto:contact@chargescreen.co.uk' style='color:#8fe6ff'>contact@chargescreen.co.uk</a></p>");
   html += F("<p class='version'>");
   html += FIRMWARE_VERSION;
   html += F("</p>");
@@ -1757,9 +1760,12 @@ static String settingsPageHtml(const String &message = "") {
   } else {
     html += F("<div class='msg' id='status' hidden></div>");
   }
+  html += F("<h2>Using ChargeScreen</h2>");
+  html += F("<p class='hint'>Power ChargeScreen using USB-C or the rear connector. If using the rear connector, plug it in carefully with the <strong>red wire closest to the USB-C port</strong>. Follow the connector position, not the cable colours: voltage and ground use the opposite colours to the usual convention.</p>");
+  html += F("<p class='hint'>Open Settings from the cog on the round display, start WiFi, join the ChargeScreen hotspot, and use this page to enter keys and configure the display.</p>");
   html += F("<form method='post' action='/save' data-working='Saving...'>");
   html += F("<h2>Victron</h2>");
-  html += F("<p class='hint'>Paste 32 character Victron Instant Readout decrypt keys. Saved values stay on this device.</p>");
+  html += F("<p class='hint'>For a Victron Shunt or Victron MPPT solar controller, open VictronConnect, connect to the device, open Settings, tap the three dots, then open Product info. Enable Instant Readout if needed, show the Instant Readout encryption data, and paste the 32 character encryption key below. A MAC address is not required. Saved keys stay on this device.</p>");
   html += F("<label for='shunt_key'>Battery monitor key</label><input id='shunt_key' name='shunt_key' autocomplete='off' placeholder='");
   html += maskedKeyText(storedVictronKey);
   html += F("'>");
@@ -1820,6 +1826,9 @@ static String settingsPageHtml(const String &message = "") {
   html += F("<label class='check'><input type='checkbox' name='labels' value='1'");
   html += showValueLabels ? F(" checked") : F("");
   html += F(">Show labels</label>");
+  html += F("<label class='check'><input type='checkbox' name='value_grid' value='1'");
+  html += showValueGrid ? F(" checked") : F("");
+  html += F(">Show value grid</label>");
   html += F("<label class='check'><input type='checkbox' name='demo_mode' value='1'");
   html += demoModeEnabled ? F(" checked") : F("");
   html += F(">Demo mode</label>");
@@ -1845,10 +1854,14 @@ static String settingsPageHtml(const String &message = "") {
   html += F("<button type='submit'>Save Settings</button></form>");
   html += F("<form method='post' action='/clear-keys' data-working='Clearing keys...'>");
   html += F("<button class='danger' type='submit'>Clear Saved Keys</button></form>");
+  html += F("<h2>Premade ChargeScreen</h2>");
+  html += F("<p class='hint'>Premade units with firmware already installed are available through the ChargeScreen project thread on the T6 Forum.</p>");
+  html += F("<a href='https://www.t6forum.com/threads/standalone-esp32-ble-battery-display-for-victron-systems.66515/' style='display:block;box-sizing:border-box;width:100%;margin-top:18px;padding:14px;background:#2fb36d;color:#04140b;text-align:center;text-decoration:none;font-weight:700'>View T6 Forum thread</a>");
   html += F("<h2>BLE Capture</h2>");
   html += F("<p class='hint'>This records nearby Bluetooth Low Energy advertisements for 5 minutes so the data can be inspected later. During capture, the round screen changes to a capture display and normal dashboard decoding is paused. The CSV records timing, address, name, signal strength, manufacturer data, service data, advertised UUIDs, and raw advertisement payloads.</p>");
   html += F("<p class='hint'>Privacy note: this captures all BLE advertisements nearby, including packets from things like watches, phones, TVs, and sensors. Most of that data is encrypted or only useful to the device it belongs to, but the packets will still appear in the CSV. It is safe to share for debugging.</p>");
   html += F("<p class='hint'>Your battery data may also be encrypted. If the battery app shows Bluetooth encryption codes, include them with the email containing the capture. Those codes only help decode the battery packets; they do not give access to your WiFi, phone, or other devices. Realistically, the most they could reveal is your battery status if someone was physically nearby, for example on the same campsite.</p>");
+  html += F("<p class='hint'>Send the completed CSV and any battery encryption codes to <a href='mailto:blecapture@chargescreen.co.uk' style='color:#8fe6ff'>blecapture@chargescreen.co.uk</a>. Captures are used to improve compatibility with more devices in future firmware.</p>");
   html += F("<p class='hint'>Use this with the device physically close to the battery or accessory you want to identify. The saved CSV is named after the strongest BLE signal heard during the capture.</p>");
   html += F("<div class='msg'><strong id='cap_state'>Capture status loading...</strong><br><span id='cap_detail' class='hint'></span></div>");
   if (captureActive) {
@@ -1861,11 +1874,14 @@ static String settingsPageHtml(const String &message = "") {
   if (captureSaved && LittleFS.exists(capturePath)) {
     html += F("<p class='hint'>BLE capture ready: ");
     html += captureFilename;
-    html += F("</p><p class='hint'>After downloading, email the CSV file together with any Bluetooth encryption keys or codes shown in your battery app to <a href='mailto:chargescreen.ricopicouk@gmail.com' style='color:#8fe6ff'>Chargescreen.ricopicouk@gmail.com</a>. This capture will be used to aid future development and improve compatibility with more devices. The keys are only used to decode battery packets in the capture.</p>");
+    html += F("</p><p class='hint'>After downloading, email the CSV file together with any Bluetooth encryption keys or codes shown in your battery app to <a href='mailto:blecapture@chargescreen.co.uk' style='color:#8fe6ff'>blecapture@chargescreen.co.uk</a>. This capture will be used to aid future development and improve compatibility with more devices. The keys are only used to decode battery packets in the capture.</p>");
     html += F("<a href='/download-capture' style='display:block;box-sizing:border-box;width:100%;margin-top:18px;padding:14px;background:#2fb36d;color:#04140b;text-align:center;text-decoration:none;font-weight:700'>Download BLE CSV</a>");
   } else {
     html += F("<p class='hint'>No BLE capture CSV is ready yet.</p>");
   }
+  html += F("<h2>Latest Firmware</h2>");
+  html += F("<p class='hint'>The current public release is beta 4.13. Download the firmware file, then upload it using the form below.</p>");
+  html += F("<a href='https://github.com/ricopicouk/ChargeScreen/releases/download/v4.13-beta/Beta4.13.bin' style='display:block;box-sizing:border-box;width:100%;margin-top:18px;padding:14px;background:#183743;color:#eef;text-align:center;text-decoration:none;font-weight:700;border:1px solid #42616d'>Download beta 4.13</a>");
   html += F("<form method='post' action='/firmware' enctype='multipart/form-data' data-working='Uploading firmware...'>");
   html += F("<label for='firmware'>Firmware update</label><input id='firmware' name='firmware' type='file' accept='.bin,application/octet-stream'>");
   html += F("<button class='secondary' type='submit'>Upload Firmware</button></form>");
@@ -1981,6 +1997,13 @@ static void handleSettingsSave() {
   if (nextLabels != showValueLabels) {
     showValueLabels = nextLabels;
     secrets.putBool("value_labels", showValueLabels);
+  }
+  saved = true;
+
+  bool nextGrid = settingsServer.hasArg("value_grid");
+  if (nextGrid != showValueGrid) {
+    showValueGrid = nextGrid;
+    secrets.putBool("value_grid", showValueGrid);
   }
   saved = true;
 
@@ -2318,8 +2341,9 @@ static void drawSettingsPage(bool force = false) {
   gfx->fillScreen(COLOR_BLACK_SOFT);
   gfx->fillCircle(120, 120, 120, COLOR_PANEL_BLUE);
   gfx->drawCircle(120, 120, 119, 0x18C3);
-  gfx->fillCircle(112, 20, settingsPageIndex == 0 ? 3 : 2, COLOR_DIM_TEXT);
-  gfx->fillCircle(128, 20, settingsPageIndex == 1 ? 3 : 2, COLOR_DIM_TEXT);
+  gfx->fillCircle(104, 20, settingsPageIndex == 0 ? 3 : 2, COLOR_DIM_TEXT);
+  gfx->fillCircle(120, 20, settingsPageIndex == 1 ? 3 : 2, COLOR_DIM_TEXT);
+  gfx->fillCircle(136, 20, settingsPageIndex == 2 ? 3 : 2, COLOR_DIM_TEXT);
   drawAaCentered(AA_FONT_SMALL, "Settings", 120, 32, WHITE);
 
   auto drawRow = [](int16_t y, const String &label, const String &value, bool active) {
@@ -2356,7 +2380,7 @@ static void drawSettingsPage(bool force = false) {
     drawStepperRow(SETTINGS_SOLAR_WATTS_Y, "Solar W", String(solarArrayWatts));
     drawRow(SETTINGS_DEMO_Y, "Demo mode", demoModeEnabled ? "On" : "-", demoModeEnabled);
     drawRow(SETTINGS_ROTATION_Y, "Rotation", String(screenRotationDegrees), false);
-  } else {
+  } else if (settingsPageIndex == 1) {
     drawRow(SETTINGS_TIMEOUT_Y, "Timeout", screenTimeoutText(), false);
 
     gfx->drawRect(SETTINGS_ROW_X, SETTINGS_BATTERY_Y, 96, SETTINGS_ROW_H, 0x6B4D);
@@ -2367,15 +2391,10 @@ static void drawSettingsPage(bool force = false) {
     gfx->fillRect(141, SETTINGS_BATTERY_Y + 1, 60, SETTINGS_ROW_H - 2, 0x01EB);
     drawAaCentered(AA_FONT_SMALL, batteryModeText(), 171, SETTINGS_BATTERY_Y - 1, WHITE);
 
-    gfx->drawRect(SETTINGS_ROW_X, SETTINGS_LABELS_Y, 96, SETTINGS_ROW_H, 0x6B4D);
-    gfx->fillRect(SETTINGS_ROW_X + 1, SETTINGS_LABELS_Y + 1, 94, SETTINGS_ROW_H - 2, 0x01EB);
-    drawAaCentered(AA_FONT_SMALL, "Labels", SETTINGS_ROW_X + 48, SETTINGS_LABELS_Y - 1, WHITE);
-
-    gfx->drawRect(140, SETTINGS_LABELS_Y, 62, SETTINGS_ROW_H, 0x6B4D);
-    gfx->fillRect(141, SETTINGS_LABELS_Y + 1, 60, SETTINGS_ROW_H - 2, 0x01EB);
-    drawAaCentered(AA_FONT_SMALL, showValueLabels ? "On" : "-", 171, SETTINGS_LABELS_Y - 1, WHITE);
-
     drawRow(SETTINGS_DIMMING_Y, "Dimming", backlightLevelText(), false);
+  } else {
+    drawRow(SETTINGS_LABELS_Y, "Labels", showValueLabels ? "On" : "-", showValueLabels);
+    drawRow(SETTINGS_GRID_Y, "Grid", showValueGrid ? "On" : "-", showValueGrid);
   }
 
   drawBackButton();
@@ -2462,7 +2481,7 @@ static void drawSettingsInfoPage(bool force = false) {
   drawInfoLine(104, "Demo", demoModeEnabled ? "On" : "Off");
   drawInfoLine(124, "Rotation", String(screenRotationDegrees));
   drawInfoLine(144, "Battery", batteryModeText());
-  drawInfoLine(164, "Labels", showValueLabels ? "On" : "Off");
+  drawInfoLine(164, "Label/Grid", String(showValueLabels ? "On/" : "Off/") + (showValueGrid ? "On" : "Off"));
   drawInfoLine(184, "Keys", storedVictronKey.length() || storedSolarKey.length() ? "saved" : "-");
 
   drawBackButton();
@@ -2478,6 +2497,16 @@ static void drawGaugeFace() {
   gfx->fillCircle(120, 120, GAUGE_CLEAR_RADIUS, COLOR_PANEL_BLUE);
   gaugeFaceDrawn = true;
   gaugeValuesDrawn = false;
+}
+
+static void drawBatteryValueGridAt(int16_t centerX) {
+  if (!showValueGrid) {
+    return;
+  }
+
+  uint16_t gridColor = 0x6B4D;
+  gfx->drawFastVLine(centerX, 106, 72, gridColor);
+  gfx->drawFastHLine(centerX - 67, 144, 134, gridColor);
 }
 
 static void drawPageTwoAtOffset(int16_t offsetX) {
@@ -2540,23 +2569,24 @@ static void drawDashboardAtOffset(int16_t offsetX) {
   gfx->fillCircle(centerX, 120, GAUGE_CLEAR_RADIUS, COLOR_PANEL_BLUE);
 
   if (stats.valid) {
+    drawBatteryValueGridAt(centerX);
     if (showValueLabels) {
       drawTinyLabel("STATE OF CHARGE", centerX, 42, COLOR_DIM_TEXT);
     }
     drawAaCentered(AA_FONT_LARGE, String(socDisplay) + "%", centerX, 47, WHITE);
-    drawAaCentered(AA_FONT_SMALL, formatSignedOneDecimal(stats.voltage, "V"), centerX - 42, 112, WHITE);
-    drawAaCentered(AA_FONT_SMALL, formatSignedOneDecimal(stats.current, "A"), centerX + 44, 112, WHITE);
+    drawAaCentered(AA_FONT_SMALL, formatSignedOneDecimal(stats.voltage, "V"), centerX - 42, 104, WHITE);
+    drawAaCentered(AA_FONT_SMALL, formatSignedOneDecimal(stats.current, "A"), centerX + 44, 104, WHITE);
     if (showValueLabels) {
-      drawTinyLabel("BATTERY", centerX - 42, 139, COLOR_DIM_TEXT);
-      drawTinyLabel("CURRENT", centerX + 44, 139, COLOR_DIM_TEXT);
+      drawTinyLabel("BATTERY", centerX - 42, 130, COLOR_DIM_TEXT);
+      drawTinyLabel("CURRENT", centerX + 44, 130, COLOR_DIM_TEXT);
     }
-    drawAaCentered(AA_FONT_SMALL, formatSignedOneDecimal(stats.power, "W"), centerX - 42, 146, WHITE);
-    drawAaCentered(AA_FONT_SMALL, auxDisplayText(), centerX + 44, 146, WHITE);
+    drawAaCentered(AA_FONT_SMALL, formatSignedOneDecimal(stats.power, "W"), centerX - 42, 147, WHITE);
+    drawAaCentered(AA_FONT_SMALL, auxDisplayText(), centerX + 44, 147, WHITE);
     if (showValueLabels) {
-      drawTinyLabel("POWER", centerX - 42, 172, COLOR_DIM_TEXT);
-      drawTinyLabel("USAGE", centerX + 44, 172, COLOR_DIM_TEXT);
+      drawTinyLabel("POWER", centerX - 42, 173, COLOR_DIM_TEXT);
+      drawTinyLabel("USAGE", centerX + 44, 173, COLOR_DIM_TEXT);
     }
-    drawAaCentered(AA_FONT_SMALL, statusText, centerX, 182, COLOR_DIM_TEXT);
+    drawAaCentered(AA_FONT_SMALL, statusText, centerX, 188, COLOR_DIM_TEXT);
   } else {
     drawAaCentered(AA_FONT_LARGE, "--%", centerX, 50, WHITE);
     drawAaCentered(AA_FONT_SMALL, statusText, centerX, 106, COLOR_DIM_TEXT);
@@ -2890,19 +2920,40 @@ static void handleTap(int16_t x, int16_t y) {
         return;
       }
 
-      if (pointInRect(x, y, SETTINGS_ROW_X, SETTINGS_LABELS_Y, 164, SETTINGS_ROW_H)) {
+      if (pointInRect(x, y, SETTINGS_ROW_X, SETTINGS_DIMMING_Y, SETTINGS_VALUE_X + SETTINGS_VALUE_W - SETTINGS_ROW_X, SETTINGS_ROW_H)) {
+        cycleBacklightLevel();
+        return;
+      }
+
+      if (pointInRect(x, y, SETTINGS_BACK_X, SETTINGS_BACK_Y, SETTINGS_BACK_W, SETTINGS_BACK_H)) {
+        closeSettingsPage();
+        return;
+      }
+      return;
+    }
+
+    if (settingsPageIndex == 2) {
+      if (pointInRect(x, y, SETTINGS_ROW_X, SETTINGS_LABELS_Y, SETTINGS_VALUE_X + SETTINGS_VALUE_W - SETTINGS_ROW_X, SETTINGS_ROW_H)) {
         showValueLabels = !showValueLabels;
         secrets.putBool("value_labels", showValueLabels);
+        settingsMessage = showValueLabels ? "Labels on" : "Labels off";
         invalidateScreens();
         settingsPageActive = true;
-        settingsPageIndex = 1;
+        settingsPageIndex = 2;
         settingsPageDrawn = false;
         drawCurrentPage(true);
         return;
       }
 
-      if (pointInRect(x, y, SETTINGS_ROW_X, SETTINGS_DIMMING_Y, SETTINGS_VALUE_X + SETTINGS_VALUE_W - SETTINGS_ROW_X, SETTINGS_ROW_H)) {
-        cycleBacklightLevel();
+      if (pointInRect(x, y, SETTINGS_ROW_X, SETTINGS_GRID_Y, SETTINGS_VALUE_X + SETTINGS_VALUE_W - SETTINGS_ROW_X, SETTINGS_ROW_H)) {
+        showValueGrid = !showValueGrid;
+        secrets.putBool("value_grid", showValueGrid);
+        settingsMessage = showValueGrid ? "Grid on" : "Grid off";
+        invalidateScreens();
+        settingsPageActive = true;
+        settingsPageIndex = 2;
+        settingsPageDrawn = false;
+        drawCurrentPage(true);
         return;
       }
 
@@ -3054,23 +3105,24 @@ static void drawGaugeValues(bool force = false) {
   gfx->fillCircle(120, 120, GAUGE_CLEAR_RADIUS, COLOR_PANEL_BLUE);
 
   if (stats.valid) {
+    drawBatteryValueGridAt(120);
     if (showValueLabels) {
       drawTinyLabel("STATE OF CHARGE", 120, 42, COLOR_DIM_TEXT);
     }
     drawAaCentered(AA_FONT_LARGE, String(socDisplay) + "%", 120, 47, WHITE);
-    drawAaCentered(AA_FONT_SMALL, voltageText, 78, 112, WHITE);
-    drawAaCentered(AA_FONT_SMALL, currentText, 164, 112, WHITE);
+    drawAaCentered(AA_FONT_SMALL, voltageText, 78, 104, WHITE);
+    drawAaCentered(AA_FONT_SMALL, currentText, 164, 104, WHITE);
     if (showValueLabels) {
-      drawTinyLabel("BATTERY", 78, 139, COLOR_DIM_TEXT);
-      drawTinyLabel("CURRENT", 164, 139, COLOR_DIM_TEXT);
+      drawTinyLabel("BATTERY", 78, 130, COLOR_DIM_TEXT);
+      drawTinyLabel("CURRENT", 164, 130, COLOR_DIM_TEXT);
     }
-    drawAaCentered(AA_FONT_SMALL, powerText, 78, 146, WHITE);
-    drawAaCentered(AA_FONT_SMALL, auxText, 164, 146, WHITE);
+    drawAaCentered(AA_FONT_SMALL, powerText, 78, 147, WHITE);
+    drawAaCentered(AA_FONT_SMALL, auxText, 164, 147, WHITE);
     if (showValueLabels) {
-      drawTinyLabel("POWER", 78, 172, COLOR_DIM_TEXT);
-      drawTinyLabel("USAGE", 164, 172, COLOR_DIM_TEXT);
+      drawTinyLabel("POWER", 78, 173, COLOR_DIM_TEXT);
+      drawTinyLabel("USAGE", 164, 173, COLOR_DIM_TEXT);
     }
-    drawAaCentered(AA_FONT_SMALL, statusText, 120, 182, COLOR_DIM_TEXT);
+    drawAaCentered(AA_FONT_SMALL, statusText, 120, 188, COLOR_DIM_TEXT);
   } else {
     drawAaCentered(AA_FONT_LARGE, "--%", 120, 50, WHITE);
     drawAaCentered(AA_FONT_SMALL, statusText, 120, 106, COLOR_DIM_TEXT);
@@ -3253,7 +3305,11 @@ static void updateTouchSwipe() {
       durationMs < 1000 &&
       absDx >= SWIPE_MIN_PIXELS &&
       absDx > static_cast<int16_t>(absDy * SWIPE_HORIZONTAL_BIAS)) {
-    settingsPageIndex = settingsPageIndex == 0 ? 1 : 0;
+    if (dx < 0) {
+      settingsPageIndex = (settingsPageIndex + 1) % 3;
+    } else {
+      settingsPageIndex = (settingsPageIndex + 2) % 3;
+    }
     settingsPageDrawn = false;
     drawCurrentPage(true);
     return;
