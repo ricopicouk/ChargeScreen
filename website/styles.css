@@ -53,23 +53,13 @@ a {
 }
 
 .brand {
-  display: grid;
-  grid-template-columns: 58px max-content;
+  display: inline-flex;
   align-items: center;
-  gap: 16px;
   flex: 0 0 auto;
-  min-width: 0;
   color: var(--ink);
   text-decoration: none;
   font-weight: 800;
   font-size: 20px;
-}
-
-.brand img {
-  display: block;
-  width: 58px;
-  height: 58px;
-  object-fit: contain;
 }
 
 .brand span {
@@ -100,9 +90,13 @@ main {
   margin: 0 auto;
   padding: 70px 22px 52px;
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 410px);
   align-items: center;
-  gap: 36px;
+  gap: 72px;
+}
+
+.hero-copy {
+  min-width: 0;
 }
 
 .eyebrow {
@@ -123,7 +117,8 @@ h3 {
 }
 
 h1 {
-  font-size: clamp(54px, 8vw, 108px);
+  font-size: clamp(54px, 6vw, 84px);
+  overflow-wrap: anywhere;
 }
 
 h2 {
@@ -172,6 +167,14 @@ h3 {
   display: grid;
   place-items: center;
   min-height: 440px;
+}
+
+.hero-device {
+  display: block;
+  width: 100%;
+  max-width: 410px;
+  height: auto;
+  filter: drop-shadow(0 24px 29px rgba(16, 35, 43, .24));
 }
 
 .screen {
@@ -447,6 +450,10 @@ td {
     min-height: 360px;
   }
 
+  .hero-device {
+    width: min(82vw, 390px);
+  }
+
   .steps {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -460,16 +467,6 @@ td {
 
   .nav-links {
     justify-content: flex-start;
-  }
-
-  .brand {
-    grid-template-columns: 50px max-content;
-    gap: 13px;
-  }
-
-  .brand img {
-    width: 50px;
-    height: 50px;
   }
 
   .hero {

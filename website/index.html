@@ -5,14 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ChargeScreen Firmware</title>
   <meta name="description" content="ChargeScreen firmware downloads and setup guide for the ESP32-C3 round battery dashboard.">
-  <link rel="icon" href="assets/chargescreen-device-logo.png">
+  <link rel="icon" href="assets/chargescreen-device-logo.png?v=2">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="site-header">
     <nav class="nav" aria-label="Main navigation">
       <a class="brand" href="#top" aria-label="ChargeScreen home">
-        <img src="assets/chargescreen-device-logo.png" alt="" width="58" height="58">
         <span>ChargeScreen</span>
       </a>
       <div class="nav-links">
@@ -35,17 +34,8 @@
           <a class="button secondary" href="#use">Setup guide</a>
         </div>
       </div>
-      <div class="device-art" aria-label="ChargeScreen round display illustration">
-        <div class="screen">
-          <div class="screen-ring"></div>
-          <div class="screen-title">ChargeScreen</div>
-          <div class="screen-value">268 W</div>
-          <div class="screen-grid">
-            <span>14.4V</span>
-            <span>18.6A</span>
-          </div>
-          <div class="screen-pill">Victron</div>
-        </div>
+      <div class="device-art">
+        <img class="hero-device" src="assets/chargescreen-device-logo.png?v=2" alt="ChargeScreen circular battery dashboard showing a segmented charge arc and four battery values">
       </div>
     </section>
 
@@ -134,7 +124,7 @@
             <h3>beta 4.13</h3>
             <p>WiFi idle timeout fix, beta 4.12 solar wattage changes, and the latest web settings flow.</p>
           </div>
-          <a class="button primary" href="firmware/ChargeScreen-beta4.13.bin" download>Download beta 4.13</a>
+          <a class="button primary" href="https://github.com/ricopicouk/ChargeScreen/releases/download/v4.13-beta/Beta4.13.bin">Download beta 4.13</a>
         </div>
         <div class="table-wrap">
           <table>
@@ -151,49 +141,7 @@
                 <td>beta 4.13</td>
                 <td><span class="tag good">Latest</span></td>
                 <td>Fixes WiFi idle timeout being kept alive by webpage polling, and refreshes the UI when WiFi turns off.</td>
-                <td><a href="firmware/ChargeScreen-beta4.13.bin" download>Firmware</a></td>
-              </tr>
-              <tr>
-                <td>beta 4.12</td>
-                <td><span class="tag">Recent</span></td>
-                <td>Restores configurable solar panel wattage for the solar arc scale, with a 30W minimum.</td>
-                <td><a href="firmware/ChargeScreen-beta4.12.bin" download>Firmware</a></td>
-              </tr>
-              <tr>
-                <td>beta 4.10</td>
-                <td><span class="tag">Archive</span></td>
-                <td>Improved web settings layout with Victron, Eco-Worthy, sources, device settings, demo values, BLE capture, and firmware upload.</td>
-                <td><a href="firmware/ChargeScreen-beta4.10.bin" download>Firmware</a></td>
-              </tr>
-              <tr>
-                <td>beta 4.08</td>
-                <td><span class="tag">Archive</span></td>
-                <td>BLE capture screen polish and display layout refinements.</td>
-                <td><a href="firmware/ChargeScreen-beta4.08.bin" download>Firmware</a></td>
-              </tr>
-              <tr>
-                <td>beta 4.06</td>
-                <td><span class="tag">Archive</span></td>
-                <td>Captive portal and web setup improvements for easier phone access.</td>
-                <td><a href="firmware/ChargeScreen-beta4.06.bin" download>Firmware</a></td>
-              </tr>
-              <tr>
-                <td>beta 4.04</td>
-                <td><span class="tag">Archive</span></td>
-                <td>BLE capture workflow and on-device capture display improvements.</td>
-                <td><a href="firmware/ChargeScreen-beta4.04.bin" download>Firmware</a></td>
-              </tr>
-              <tr>
-                <td>beta 4.02</td>
-                <td><span class="tag">Archive</span></td>
-                <td>Web firmware update route verified on device, with early beta 4 settings work.</td>
-                <td><a href="firmware/ChargeScreen-beta4.02.bin" download>Firmware</a></td>
-              </tr>
-              <tr>
-                <td>beta 4.01</td>
-                <td><span class="tag">Archive</span></td>
-                <td>Early beta 4 build with web update support and partitioned firmware layout.</td>
-                <td><a href="firmware/ChargeScreen-beta4.01.bin" download>Firmware</a></td>
+                <td><a href="https://github.com/ricopicouk/ChargeScreen/releases/download/v4.13-beta/Beta4.13.bin">Firmware</a></td>
               </tr>
             </tbody>
           </table>
