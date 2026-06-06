@@ -18,10 +18,3 @@ header_path.write_text(
 )
 
 print(f"ChargeScreen firmware version: beta4.{build_number:02d}")
-
-
-def advance_build_counter(source, target, env):
-    counter_path.write_text(f"{build_number + 1}\n", encoding="utf-8")
-
-
-env.AddPostAction("$BUILD_DIR/${PROGNAME}.bin", advance_build_counter)

@@ -1879,9 +1879,6 @@ static String settingsPageHtml(const String &message = "") {
   } else {
     html += F("<p class='hint'>No BLE capture CSV is ready yet.</p>");
   }
-  html += F("<h2>Latest Firmware</h2>");
-  html += F("<p class='hint'>The current public release is beta 4.13. Download the firmware file, then upload it using the form below.</p>");
-  html += F("<a href='https://github.com/ricopicouk/ChargeScreen/releases/download/v4.13-beta/Beta4.13.bin' style='display:block;box-sizing:border-box;width:100%;margin-top:18px;padding:14px;background:#183743;color:#eef;text-align:center;text-decoration:none;font-weight:700;border:1px solid #42616d'>Download beta 4.13</a>");
   html += F("<form method='post' action='/firmware' enctype='multipart/form-data' data-working='Uploading firmware...'>");
   html += F("<label for='firmware'>Firmware update</label><input id='firmware' name='firmware' type='file' accept='.bin,application/octet-stream'>");
   html += F("<button class='secondary' type='submit'>Upload Firmware</button></form>");
@@ -2207,7 +2204,7 @@ static void handleFirmwareUpdateDone() {
   settingsServer.sendHeader("Connection", "close");
   settingsServer.send(200,
                       "text/html",
-                      ok ? F("<!doctype html><meta name='viewport' content='width=device-width,initial-scale=1'><body style='font-family:system-ui;background:#07151c;color:#eef;padding:22px'><h1>Firmware uploaded</h1><p>ChargeScreen is restarting.</p></body>")
+                      ok ? F("<!doctype html><meta name='viewport' content='width=device-width,initial-scale=1'><body style='font-family:system-ui;background:#07151c;color:#eef;padding:22px;max-width:560px;margin:auto'><h1>Firmware updated</h1><p>ChargeScreen is restarting. Wait for the round display to return, open Settings on the device, start WiFi again, and reconnect your phone to the <strong>ChargeScreen</strong> hotspot.</p><p>Once reconnected, use the button below to reopen the setup page.</p><a href='http://192.168.4.1/' style='display:block;box-sizing:border-box;width:100%;margin-top:22px;padding:14px;background:#2fb36d;color:#04140b;text-align:center;text-decoration:none;font-weight:700'>Reload ChargeScreen setup</a></body>")
                          : F("<!doctype html><meta name='viewport' content='width=device-width,initial-scale=1'><body style='font-family:system-ui;background:#07151c;color:#eef;padding:22px'><h1>Firmware update failed</h1><p>Upload a valid ESP32-C3 firmware.bin built for this project.</p></body>"));
   delay(500);
   if (ok) {
@@ -2586,7 +2583,7 @@ static void drawDashboardAtOffset(int16_t offsetX) {
       drawTinyLabel("POWER", centerX - 42, 173, COLOR_DIM_TEXT);
       drawTinyLabel("USAGE", centerX + 44, 173, COLOR_DIM_TEXT);
     }
-    drawAaCentered(AA_FONT_SMALL, statusText, centerX, 188, COLOR_DIM_TEXT);
+    drawAaCentered(AA_FONT_SMALL, statusText, centerX, 185, COLOR_DIM_TEXT);
   } else {
     drawAaCentered(AA_FONT_LARGE, "--%", centerX, 50, WHITE);
     drawAaCentered(AA_FONT_SMALL, statusText, centerX, 106, COLOR_DIM_TEXT);
@@ -3122,7 +3119,7 @@ static void drawGaugeValues(bool force = false) {
       drawTinyLabel("POWER", 78, 173, COLOR_DIM_TEXT);
       drawTinyLabel("USAGE", 164, 173, COLOR_DIM_TEXT);
     }
-    drawAaCentered(AA_FONT_SMALL, statusText, 120, 188, COLOR_DIM_TEXT);
+    drawAaCentered(AA_FONT_SMALL, statusText, 120, 185, COLOR_DIM_TEXT);
   } else {
     drawAaCentered(AA_FONT_LARGE, "--%", 120, 50, WHITE);
     drawAaCentered(AA_FONT_SMALL, statusText, 120, 106, COLOR_DIM_TEXT);
