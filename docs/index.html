@@ -18,6 +18,7 @@
         <a href="#use">Use</a>
         <a href="#victron">Victron keys</a>
         <a href="#ble">BLE capture</a>
+        <a href="#buy">Buy</a>
         <a href="#downloads">Firmware</a>
       </div>
     </nav>
@@ -52,8 +53,8 @@
       <div class="steps">
         <article>
           <span class="step-number">1</span>
-          <h3>Flash the firmware</h3>
-          <p>Install the latest firmware for the JCZN ESP32-2424S012 board. After flashing, keep the device powered while it restarts.</p>
+          <h3>Power on</h3>
+          <p>Power ChargeScreen using USB-C or the rear connector. If using the rear connector, plug it in carefully with the <strong>red wire closest to the USB-C port</strong>. Follow this position, not the cable colours: voltage and ground use the opposite colours to the usual convention. The tiny JST 1.25 connector was left this way because depinning it risked damaging the plug.</p>
         </article>
         <article>
           <span class="step-number">2</span>
@@ -81,12 +82,12 @@
       <div class="copy-block">
         <p>ChargeScreen reads Victron Instant Readout Bluetooth adverts. Those adverts are encrypted, so each Victron device needs its own Instant Readout encryption data.</p>
         <ol>
-          <li>Open the VictronConnect app near your SmartShunt, BMV, SmartSolar, or other supported Victron Smart device.</li>
+          <li>Open the VictronConnect app near your Victron Shunt or Victron MPPT solar controller.</li>
           <li>Connect to the Victron device over Bluetooth.</li>
           <li>Open settings, tap the three dots, then open Product info.</li>
           <li>Enable Instant Readout if it is not already enabled.</li>
           <li>Find Instant Readout details or encryption data and choose Show.</li>
-          <li>Copy the MAC address and encryption key into the ChargeScreen setup page.</li>
+          <li>Copy the encryption key into the ChargeScreen setup page.</li>
         </ol>
         <p class="small-note">Victron documents Instant Readout in the VictronConnect manual. The exact wording can vary slightly between app versions and device types.</p>
         <a class="text-link" href="https://www.victronenergy.com/media/pg/VictronConnect_Manual/en/stored-trends---instant-readout.html">VictronConnect Instant Readout manual</a>
@@ -106,9 +107,20 @@
           <li>Press Start 5 Minute BLE Capture.</li>
           <li>Wait for the capture to finish, or stop it early from the screen or webpage.</li>
           <li>Download the CSV file when it is ready.</li>
-          <li>Email the CSV and any battery app Bluetooth encryption codes to <a href="mailto:chargescreen.ricopicouk@gmail.com">chargescreen.ricopicouk@gmail.com</a>.</li>
+          <li>Email the CSV and any battery app Bluetooth encryption codes to <a href="mailto:blecapture@chargescreen.co.uk">blecapture@chargescreen.co.uk</a>.</li>
         </ol>
         <p class="small-note">Privacy note: the CSV may include packets from nearby watches, phones, TVs, sensors, and batteries. Most of it is encrypted or only useful to the original device, but it will still appear in the file. Battery encryption codes are only used to decode the battery packets in the capture.</p>
+      </div>
+    </section>
+
+    <section id="buy" class="section split-section">
+      <div class="section-heading">
+        <p class="eyebrow">Ready to use</p>
+        <h2>Buy a premade ChargeScreen</h2>
+      </div>
+      <div class="copy-block">
+        <p>ChargeScreen units are available premade and supplied with the firmware already installed. Visit the T6 Forum project thread for availability, discussion, and ordering details.</p>
+        <a class="button primary" href="https://www.t6forum.com/threads/standalone-esp32-ble-battery-display-for-victron-systems.66515/">View the T6 Forum thread</a>
       </div>
     </section>
 
