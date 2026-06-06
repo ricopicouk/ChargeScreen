@@ -53,9 +53,12 @@ a {
 }
 
 .brand {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: 58px max-content;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+  flex: 0 0 auto;
+  min-width: 0;
   color: var(--ink);
   text-decoration: none;
   font-weight: 800;
@@ -63,8 +66,14 @@ a {
 }
 
 .brand img {
-  width: 54px;
-  height: 54px;
+  display: block;
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+}
+
+.brand span {
+  white-space: nowrap;
 }
 
 .nav-links {
@@ -451,6 +460,16 @@ td {
 
   .nav-links {
     justify-content: flex-start;
+  }
+
+  .brand {
+    grid-template-columns: 50px max-content;
+    gap: 13px;
+  }
+
+  .brand img {
+    width: 50px;
+    height: 50px;
   }
 
   .hero {
