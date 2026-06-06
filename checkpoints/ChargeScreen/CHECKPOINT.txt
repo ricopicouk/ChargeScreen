@@ -1,0 +1,51 @@
+Current ChargeScreen firmware - beta3.0
+
+This folder is the current working ChargeScreen firmware. The beta-2 folder
+remains the final Beta 2 release snapshot, and beta-3 is the Beta 3 release
+snapshot.
+
+Confirmed state:
+- gradient drawing has been removed; battery and solar pages use solid backgrounds again
+- solar arc colours are unchanged
+- battery arc colours are unchanged
+- labels on/off uses identical value/status positions
+- battery status always stays at the bottom
+- solar status only appears at the bottom
+- battery label now says STATE OF CHARGE at the top
+- battery BATTERY/CURRENT/POWER/USAGE labels are moved down 3 px
+- battery SOC is lowered slightly
+- AUX label is renamed to USAGE
+- battery and solar readings are lifted to leave more room above the settings dots
+- solar LIVE label is removed
+- PV POWER label is lowered closer to the watt readout
+- PV POWER label is above the solar watt readout
+- solar BATTERY, CHARGE, and TODAY labels are lowered
+- bottom settings dots are lowered
+- battery page live redraw now uses optional labels
+- labels can be toggled on/off from settings page 2
+- battery page now uses the same optional compact labels as solar
+- solar layout separates today kWh and state to avoid collisions
+- solar page shows compact labels for PV power, battery voltage, charge current, daily yield, and state
+- settings page markers use two horizontal dots
+- Battery selector boxes stay blue in both Victron and EcoW modes
+- solar page lower-left value no longer mirrors top watts
+- battery selector uses EcoW wording
+- EcoW mode shows clear Eco-Worthy searching text on the battery page
+- settings page markers show as 1 / 2 and 2 / 2 at the top
+- solar page no longer shows the daily kWh yield in the compact live values
+- settings has a second swipe page with Battery set to Victron or EcoW
+- firmware version shows as beta3.0 at the top of the WiFi settings page
+- firmware/settings info is available on the round screen by holding Demo mode for 3 seconds
+- keys are entered and cleared from the WiFi settings page
+- missing Victron keys show "Add key via WiFi" instead of decode error
+- Eco-Worthy/JBD battery password storage is available on the WiFi settings page
+- Victron solar BLE decrypt/parsing is retained
+- solar page uses the warm amber styling
+- shunt demo values are 69%, 14.7 V, 30.0 A, 441 W, and 27.2 Ah
+- demo mode is saved from the on-device settings screen
+- screen rotation is saved from the on-device settings screen
+- settings menu has WiFi, demo mode, rotation, and back controls
+- WiFi can be toggled on and off from settings
+- VE.Direct and accelerometer rotation code are not included
+
+Private settings from include/config.h are intentionally not included.
