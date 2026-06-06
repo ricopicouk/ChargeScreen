@@ -1,7 +1,7 @@
 {
   "firmware": {
-    "version": "beta 4.17",
-    "download_url": "https://github.com/ricopicouk/ChargeScreen/releases/download/v4.17-beta/Beta.4.17.bin",
+    "version": "beta 4.18",
+    "download_url": "https://github.com/ricopicouk/ChargeScreen/releases/download/v4.18-beta/Beta.4.18.bin",
     "summary": "Adds the optional battery value grid, a third settings page, updated setup guidance, and an improved firmware-update reconnect screen.",
     "changes": "Adds the battery value grid and grid toggle, three settings pages, updated WiFi-page instructions and contacts, and a clearer post-update reconnect flow."
   },
