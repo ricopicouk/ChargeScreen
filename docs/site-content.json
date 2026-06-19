@@ -1,16 +1,16 @@
 {
   "firmware": {
-    "version": "beta 6.04",
-    "download_url": "https://github.com/ricopicouk/ChargeScreen/releases/download/v6.04-TestVersion/Beta6.Test.version.bin",
-    "summary": "Adds support for DC 2 DC chargers\n\nAdds the optional battery value grid, a third settings page, updated setup guidance, and an improved firmware-update reconnect screen.",
-    "changes": "Adds the battery value grid and grid toggle, three settings pages, updated WiFi-page instructions and contacts, and a clearer post-update reconnect flow."
+    "version": "beta 6.11",
+    "download_url": "https://github.com/ricopicouk/ChargeScreen/releases/download/beta-6.11/Beta.6.11.bin",
+    "summary": "Splits up the Eco Worthy Screen from the Victron Shunt Screen.\n\nSupports Dc to Dc Orion Chargers\n\nSupports Victron Mains Chargers\n\nSettings in wifi to enable / disable screens shown.",
+    "changes": "Splits up the Eco Worthy Screen from the Victron Shunt Screen.\n\nSupports Dc to Dc Orion Chargers\n\nSupports Victron Mains Chargers\n\nSettings in wifi to enable / disable screens shown."
   },
   "contact": {
     "general_email": "contact@chargescreen.co.uk",
     "ble_email": "blecapture@chargescreen.co.uk"
   },
   "instructions": {
-    "power": "Power ChargeScreen using USB-C or the rear connector. If using the rear connector, plug it in carefully with the red wire closest to the USB-C port. Follow this position, not the cable colours: voltage and ground use the opposite colours to the usual convention. The tiny JST 1.25 connector was left this way because depinning it risked damaging the plug.",
+    "power": "Power ChargeScreen using USB-C or the rear connector. If using the rear connector, make sure to line up the notch at the top of the cable with the gap on the plug. ",
     "victron_intro": "ChargeScreen reads Victron Instant Readout Bluetooth adverts. Those adverts are encrypted, so each Victron device needs its own Instant Readout encryption data.",
     "victron_first_step": "Open the VictronConnect app near your Victron Shunt or Victron MPPT solar controller.",
     "ble_intro": "BLE capture records nearby Bluetooth Low Energy adverts for 5 minutes. It is useful when adding support for batteries or accessories that do not decode correctly yet.",
