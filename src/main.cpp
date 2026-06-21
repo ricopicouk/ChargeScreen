@@ -99,6 +99,7 @@ static constexpr int16_t SETTINGS_BATTERY_Y = 116;
 static constexpr int16_t SETTINGS_DIMMING_Y = 156;
 static constexpr int16_t SETTINGS_LABELS_Y = 98;
 static constexpr int16_t SETTINGS_GRID_Y = 136;
+static constexpr int16_t SETTINGS_AUTOROTATE_Y = 174;
 static constexpr int16_t ROTATE_BUTTON_X = 70;
 static constexpr int16_t ROTATE_BUTTON_Y = 68;
 static constexpr int16_t ROTATE_BUTTON_W = 100;
@@ -217,6 +218,8 @@ static bool demoModeEnabled = DEMO_MODE;
 static bool ecoWorthyBatteryMode = false;
 static bool showValueLabels = true;
 static bool showValueGrid = true;
+static uint16_t autoRotateSeconds = 0;
+static uint32_t lastAutoRotateMs = 0;
 static uint16_t screenTimeoutSeconds = DEFAULT_SCREEN_TIMEOUT_SECONDS;
 static uint8_t backlightLevel = BACKLIGHT_LEVEL_MAX;
 static int screenRotationDegrees = DISPLAY_ROTATION * 90;
@@ -537,6 +540,23 @@ static String screenTimeoutText() {
              : String(screenTimeoutSeconds) + "s";
 }
 
+static constexpr uint16_t AUTO_ROTATE_OPTIONS[] = {0, 5, 10, 15, 30, 60};
+static constexpr uint8_t AUTO_ROTATE_OPTION_COUNT =
+    sizeof(AUTO_ROTATE_OPTIONS) / sizeof(AUTO_ROTATE_OPTIONS[0]);
+
+static uint16_t sanitiseAutoRotateSeconds(int value) {
+  for (uint8_t i = 0; i < AUTO_ROTATE_OPTION_COUNT; i++) {
+    if (value == AUTO_ROTATE_OPTIONS[i]) {
+      return AUTO_ROTATE_OPTIONS[i];
+    }
+  }
+  return 0;
+}
+
+static String autoRotateText() {
+  return autoRotateSeconds == 0 ? "Off" : String(autoRotateSeconds) + "s";
+}
+
 static uint8_t sanitiseBacklightLevel(uint8_t level) {
   if (level > BACKLIGHT_LEVEL_LOW) {
     return BACKLIGHT_LEVEL_MAX;
@@ -575,6 +595,7 @@ static void loadStoredSecrets() {
   ecoWorthyBatteryMode = secrets.getBool("battery_eco", false);
   showValueLabels = secrets.getBool("value_labels", true);
   showValueGrid = secrets.getBool("value_grid", true);
+  autoRotateSeconds = sanitiseAutoRotateSeconds(secrets.getUShort("auto_rotate", 0));
   solarArrayWatts = secrets.getUShort("solar_watts", DEFAULT_SOLAR_ARRAY_WATTS);
   uint16_t sanitisedSolarArrayWatts = sanitiseSolarArrayWatts(solarArrayWatts);
   if (sanitisedSolarArrayWatts != solarArrayWatts) {
@@ -1594,6 +1615,7 @@ static void drawGaugeValues(bool force);
 static String auxDisplayText();
 static void drawCurrentPage(bool force = false);
 static void setScreenRotationDegrees(int degrees);
+static void togglePageFromSwipe(int8_t direction);
 
 static void writeBacklightDuty(uint8_t duty) {
   ledcWrite(BACKLIGHT_PWM_CHANNEL, duty);
@@ -1635,6 +1657,19 @@ static void updateScreenTimeout() {
   uint32_t timeoutMs = static_cast<uint32_t>(screenTimeoutSeconds) * 1000UL;
   if (millis() - lastTouchActivityMs >= timeoutMs) {
     setScreenAwake(false);
+  }
+}
+
+static void updateAutoRotate() {
+  if (autoRotateSeconds == 0 || !screenAwake || captureActive ||
+      captureReadyScreenActive || settingsPageActive ||
+      settingsRotationPageActive || settingsInfoPageActive) {
+    return;
+  }
+
+  uint32_t intervalMs = static_cast<uint32_t>(autoRotateSeconds) * 1000UL;
+  if (millis() - lastAutoRotateMs >= intervalMs) {
+    togglePageFromSwipe(1);
   }
 }
 
@@ -1816,6 +1851,18 @@ static String settingsPageHtml(const String &message = "") {
     html += F("</option>");
   }
   html += F("</select>");
+  html += F("<label for='auto_rotate'>Auto-rotate pages</label><select id='auto_rotate' name='auto_rotate'>");
+  for (uint8_t i = 0; i < AUTO_ROTATE_OPTION_COUNT; i++) {
+    uint16_t seconds = AUTO_ROTATE_OPTIONS[i];
+    html += F("<option value='");
+    html += seconds;
+    html += F("'");
+    html += autoRotateSeconds == seconds ? F(" selected") : F("");
+    html += F(">");
+    html += seconds == 0 ? F("Off") : String(seconds) + "s";
+    html += F("</option>");
+  }
+  html += F("</select>");
   html += F("<label for='dimming'>Dimming</label><select id='dimming' name='dimming'><option value='0'");
   html += backlightLevel == BACKLIGHT_LEVEL_MAX ? F(" selected") : F("");
   html += F(">Max</option><option value='1'");
@@ -1913,11 +1960,13 @@ static void handleSettingsSave() {
   String batteryModeText = settingsServer.arg("battery_mode");
   String rotationText = settingsServer.arg("screen_rotation");
   String dimmingText = settingsServer.arg("dimming");
+  String autoRotateArgText = settingsServer.arg("auto_rotate");
   solarWattsText.trim();
   screenTimeoutText.trim();
   batteryModeText.trim();
   rotationText.trim();
   dimmingText.trim();
+  autoRotateArgText.trim();
 
   if (shuntKey.length()) {
     if (isValidKeyHex(shuntKey)) {
@@ -2030,6 +2079,19 @@ static void handleSettingsSave() {
       backlightLevel = sanitiseBacklightLevel(static_cast<uint8_t>(requestedDimming));
       secrets.putUChar("backlight", backlightLevel);
       applyBacklightLevel();
+      saved = true;
+    } else {
+      invalid = true;
+    }
+  }
+
+  if (autoRotateArgText.length()) {
+    int requestedAutoRotate = autoRotateArgText.toInt();
+    uint16_t sanitisedAutoRotate = sanitiseAutoRotateSeconds(requestedAutoRotate);
+    if (sanitisedAutoRotate == requestedAutoRotate) {
+      autoRotateSeconds = sanitisedAutoRotate;
+      secrets.putUShort("auto_rotate", autoRotateSeconds);
+      lastAutoRotateMs = millis();
       saved = true;
     } else {
       invalid = true;
@@ -2392,6 +2454,7 @@ static void drawSettingsPage(bool force = false) {
   } else {
     drawRow(SETTINGS_LABELS_Y, "Labels", showValueLabels ? "On" : "-", showValueLabels);
     drawRow(SETTINGS_GRID_Y, "Grid", showValueGrid ? "On" : "-", showValueGrid);
+    drawRow(SETTINGS_AUTOROTATE_Y, "Auto-rot", autoRotateText(), autoRotateSeconds > 0);
   }
 
   drawBackButton();
@@ -2788,6 +2851,7 @@ static void togglePageFromSwipe(int8_t direction) {
                          ? (currentPage + 1) % PAGE_COUNT
                          : (currentPage + PAGE_COUNT - 1) % PAGE_COUNT;
   switchPage(nextPage, direction);
+  lastAutoRotateMs = millis();
 }
 
 static void openSettingsPage() {
@@ -2808,6 +2872,7 @@ static void closeSettingsPage() {
   pageTwoDrawn = false;
   solarValuesDrawn = false;
   capturePageDrawn = false;
+  lastAutoRotateMs = millis();
   drawCurrentPage(true);
 }
 
@@ -2824,6 +2889,25 @@ static void advanceScreenTimeoutSeconds() {
   screenTimeoutSeconds = sanitiseScreenTimeoutSeconds(nextSeconds);
   secrets.putUShort("screen_timeout", screenTimeoutSeconds);
   settingsMessage = String("Timeout ") + screenTimeoutText();
+  settingsPageDrawn = false;
+  noteTouchActivity();
+  drawCurrentPage(true);
+}
+
+static void advanceAutoRotateSeconds() {
+  uint8_t currentIndex = 0;
+  for (uint8_t i = 0; i < AUTO_ROTATE_OPTION_COUNT; i++) {
+    if (AUTO_ROTATE_OPTIONS[i] == autoRotateSeconds) {
+      currentIndex = i;
+      break;
+    }
+  }
+  uint8_t nextIndex = (currentIndex + 1) % AUTO_ROTATE_OPTION_COUNT;
+
+  autoRotateSeconds = AUTO_ROTATE_OPTIONS[nextIndex];
+  secrets.putUShort("auto_rotate", autoRotateSeconds);
+  lastAutoRotateMs = millis();
+  settingsMessage = String("Auto-rotate ") + autoRotateText();
   settingsPageDrawn = false;
   noteTouchActivity();
   drawCurrentPage(true);
@@ -2951,6 +3035,11 @@ static void handleTap(int16_t x, int16_t y) {
         settingsPageIndex = 2;
         settingsPageDrawn = false;
         drawCurrentPage(true);
+        return;
+      }
+
+      if (pointInRect(x, y, SETTINGS_ROW_X, SETTINGS_AUTOROTATE_Y, SETTINGS_VALUE_X + SETTINGS_VALUE_W - SETTINGS_ROW_X, SETTINGS_ROW_H)) {
+        advanceAutoRotateSeconds();
         return;
       }
 
@@ -3331,6 +3420,7 @@ void setup() {
 
   initBacklight();
   noteTouchActivity();
+  lastAutoRotateMs = millis();
 
   if (!gfx->begin(80000000)) {
     Serial.println("Display init failed");
@@ -3364,6 +3454,7 @@ void loop() {
   updateBleWatchdog();
   updateTouchSwipe();
   updateScreenTimeout();
+  updateAutoRotate();
 
   if (captureActive && millis() - captureStartMs >= CAPTURE_DURATION_MS) {
     stopCapture("timer");
