@@ -107,19 +107,12 @@ static constexpr int16_t ROTATE_BUTTON_H = 96;
 static constexpr uint32_t SETTINGS_INFO_HOLD_MS = 3000;
 
 Arduino_DataBus *bus = new Arduino_ESP32SPI(
-    PIN_LCD_DC,
-    PIN_LCD_CS,
-    PIN_LCD_SCLK,
-    PIN_LCD_MOSI,
-    GFX_NOT_DEFINED);
+    PIN_LCD_DC, PIN_LCD_CS, PIN_LCD_SCLK, PIN_LCD_MOSI, GFX_NOT_DEFINED);
 
-Arduino_GFX *gfx = new Arduino_GC9A01(
-    bus,
-    GFX_NOT_DEFINED,
-    2,
-    true,
-    240,
-    240);
+Arduino_GFX *output_display = new Arduino_GC9A01(
+    bus, GFX_NOT_DEFINED, 2, true, 240, 240);
+
+Arduino_GFX *gfx = new Arduino_Canvas(240, 240, output_display);  // Double buffer!
 
 Preferences secrets;
 WebServer settingsServer(80);
@@ -1859,7 +1852,7 @@ static String settingsPageHtml(const String &message = "") {
     html += F("'");
     html += autoRotateSeconds == seconds ? F(" selected") : F("");
     html += F(">");
-    html += seconds == 0 ? F("Off") : String(seconds) + "s";
+    html += seconds == 0 ? String("Off") : String(seconds) + "s";
     html += F("</option>");
   }
   html += F("</select>");
@@ -2456,9 +2449,9 @@ static void drawSettingsPage(bool force = false) {
     drawRow(SETTINGS_GRID_Y, "Grid", showValueGrid ? "On" : "-", showValueGrid);
     drawRow(SETTINGS_AUTOROTATE_Y, "Auto-rot", autoRotateText(), autoRotateSeconds > 0);
   }
-
   drawBackButton();
   settingsPageDrawn = true;
+  gfx->flush();  // Push canvas to screen
 }
 
 static uint8_t displayRotationForDegrees(int degrees) {
@@ -2476,13 +2469,19 @@ static void setScreenRotationDegrees(int degrees) {
   if (degrees >= 360) {
     degrees %= 360;
   }
+
   screenRotationDegrees = degrees;
   secrets.putInt("screen_rotation", screenRotationDegrees);
 
   uint8_t nextRotation = displayRotationForDegrees(screenRotationDegrees);
+  
   if (nextRotation != currentDisplayRotation) {
     currentDisplayRotation = nextRotation;
-    gfx->setRotation(currentDisplayRotation);
+
+    // Only the physical panel rotates; Canvas::flush() blits unrotated, so the
+    // canvas itself must stay at rotation 0 (see setup()).
+    output_display->setRotation(currentDisplayRotation);
+
     invalidateScreens();
   }
 
@@ -2510,6 +2509,7 @@ static void drawRotationSettingsPage(bool force = false) {
 
   drawBackButton();
   settingsPageDrawn = true;
+  gfx->flush();  // Push canvas to screen
 }
 
 static String savedStatus(bool saved) {
@@ -2546,6 +2546,7 @@ static void drawSettingsInfoPage(bool force = false) {
 
   drawBackButton();
   settingsPageDrawn = true;
+  gfx->flush();  // Push canvas to screen
 }
 
 static void drawGaugeFace() {
@@ -2557,6 +2558,7 @@ static void drawGaugeFace() {
   gfx->fillCircle(120, 120, GAUGE_CLEAR_RADIUS, COLOR_PANEL_BLUE);
   gaugeFaceDrawn = true;
   gaugeValuesDrawn = false;
+  gfx->flush();  // Push canvas to screen
 }
 
 static void drawBatteryValueGridAt(int16_t centerX) {
@@ -2700,6 +2702,7 @@ static void drawPageTwo(bool force = false) {
   drawSettingsButton(COLOR_SOLAR_PANEL, COLOR_SOLAR_TEXT);
   pageTwoDrawn = true;
   solarValuesDrawn = true;
+  gfx->flush();  // Push canvas to screen
 }
 
 static void drawCaptureSecondRing(uint32_t remainingSeconds) {
@@ -2791,6 +2794,7 @@ static void drawCapturePage(bool force = false) {
   lastCaptureRssiText = captureStrongestRssi > -127 ? String(captureStrongestRssi) + "dBm" : "-";
   lastCaptureButtonText = captureActive ? "Stop" : (captureSaved ? "Done" : "");
   capturePageDrawn = true;
+  gfx->flush();  // Push canvas to screen
 }
 
 static void drawCurrentPage(bool force) {
@@ -3230,6 +3234,7 @@ static void drawGaugeValues(bool force = false) {
   lastErrorText = errorText;
   drawSettingsButton(COLOR_PANEL_BLUE, WHITE);
   gaugeValuesDrawn = true;
+  gfx->flush();  // Push canvas to screen
 }
 
 static void updateBleWatchdog() {
@@ -3422,11 +3427,19 @@ void setup() {
   noteTouchActivity();
   lastAutoRotateMs = millis();
 
-  if (!gfx->begin(80000000)) {
+if (!output_display->begin(80000000)) {
     Serial.println("Display init failed");
   }
+  if (!gfx->begin()) {
+    Serial.println("Canvas init failed");
+  }
 
-  gfx->setRotation(currentDisplayRotation);
+  // Only the physical panel rotates. Arduino_Canvas::flush() blits its framebuffer
+  // to output_display unrotated, so rotating the Canvas itself would double-apply
+  // the rotation. Keep the canvas at 0 and let output_display's MADCTL do the work.
+  gfx->setRotation(0);
+  output_display->setRotation(currentDisplayRotation);
+
   initTouch();
   if (!LittleFS.begin(true)) {
     Serial.println("LittleFS init failed");
