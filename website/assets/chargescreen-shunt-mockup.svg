@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="ChargeScreen shunt dashboard mockup">
+  <defs>
+    <radialGradient id="bezel" cx="48%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#2c3335"/>
+      <stop offset="63%" stop-color="#1b2224"/>
+      <stop offset="76%" stop-color="#08090a"/>
+      <stop offset="83%" stop-color="#252b2e"/>
+      <stop offset="100%" stop-color="#050606"/>
+    </radialGradient>
+    <radialGradient id="screen" cx="48%" cy="35%" r="72%">
+      <stop offset="0%" stop-color="#0745d8"/>
+      <stop offset="55%" stop-color="#0335ba"/>
+      <stop offset="100%" stop-color="#03258e"/>
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="20" stdDeviation="18" flood-color="#10232b" flood-opacity=".28"/>
+    </filter>
+    <filter id="screenGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
+  </defs>
+
+  <circle cx="256" cy="256" r="246" fill="#050606" filter="url(#shadow)"/>
+  <circle cx="256" cy="256" r="238" fill="url(#bezel)"/>
+  <circle cx="256" cy="256" r="226" fill="none" stroke="#0b0d0e" stroke-width="10"/>
+  <circle cx="256" cy="256" r="213" fill="none" stroke="#30383b" stroke-width="5" opacity=".65"/>
+  <circle cx="256" cy="256" r="194" fill="url(#screen)"/>
+  <circle cx="256" cy="256" r="194" fill="none" stroke="#052071" stroke-width="2" opacity=".7"/>
+
+  <g fill="none" stroke-linecap="butt">
+    <g stroke="#8af20b" stroke-width="28">
+      <path d="M 141.5 394.9 A 180 180 0 0 1 84.8 311.6"/>
+      <path d="M 82.1 302.6 A 180 180 0 0 1 84.3 201.9"/>
+      <path d="M 87.4 193 A 180 180 0 0 1 147.7 112.2"/>
+      <path d="M 155.3 106.8 A 180 180 0 0 1 251.3 76.1"/>
+      <path d="M 260.7 76.1 A 180 180 0 0 1 356.7 106.8"/>
+      <path d="M 364.3 112.2 A 180 180 0 0 1 424.6 193"/>
+      <path d="M 427.7 201.9 A 180 180 0 0 1 429.9 302.6"/>
+      <path d="M 427.2 311.6 A 180 180 0 0 1 370.5 394.9"/>
+    </g>
+    <path d="M 427.7 201.9 A 180 180 0 0 1 429.9 302.6" stroke="#4ed1c7" stroke-width="28"/>
+    <path d="M 427.2 311.6 A 180 180 0 0 1 370.5 394.9" stroke="#25c4c8" stroke-width="28"/>
+  </g>
+
+  <circle cx="256" cy="256" r="155" fill="url(#screen)" filter="url(#screenGlow)" opacity=".86"/>
+
+  <g font-family="Inter, Segoe UI, Arial, sans-serif" text-anchor="middle">
+    <text x="256" y="143" fill="#d7e4ff" font-size="16" font-weight="800" letter-spacing=".5">STATE OF CHARGE</text>
+    <text x="256" y="214" fill="#ffffff" font-size="74" font-weight="300">69%</text>
+  </g>
+
+  <g stroke="#d7e4ff" stroke-width="1.4" opacity=".8">
+    <line x1="256" y1="232" x2="256" y2="344"/>
+    <line x1="151" y1="298" x2="361" y2="298"/>
+  </g>
+
+  <g font-family="Inter, Segoe UI, Arial, sans-serif" text-anchor="middle">
+    <text x="202" y="276" fill="#ffffff" font-size="31" font-weight="350">14.7 V</text>
+    <text x="202" y="295" fill="#d7e4ff" font-size="15" font-weight="800">BATTERY</text>
+    <text x="310" y="276" fill="#ffffff" font-size="31" font-weight="350">30.0 A</text>
+    <text x="310" y="295" fill="#d7e4ff" font-size="15" font-weight="800">CURRENT</text>
+    <text x="202" y="340" fill="#ffffff" font-size="31" font-weight="350">441.0 W</text>
+    <text x="202" y="359" fill="#d7e4ff" font-size="15" font-weight="800">POWER</text>
+    <text x="310" y="340" fill="#ffffff" font-size="31" font-weight="350">27.2 Ah</text>
+    <text x="310" y="359" fill="#d7e4ff" font-size="15" font-weight="800">USAGE</text>
+    <text x="256" y="390" fill="#ffffff" font-size="28" font-weight="350">ENGINE OFF</text>
+  </g>
+
+  <g fill="#f9ffff">
+    <circle cx="256" cy="415" r="3.2"/>
+    <circle cx="256" cy="429" r="3.2"/>
+    <circle cx="256" cy="443" r="3.2"/>
+  </g>
+</svg>

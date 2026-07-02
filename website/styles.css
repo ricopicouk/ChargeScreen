@@ -136,6 +136,18 @@ h3 {
   font-size: 21px;
 }
 
+.price-note {
+  max-width: 620px;
+  margin: 18px 0 0;
+  color: #35474e;
+  font-size: 20px;
+}
+
+.price-note strong {
+  color: var(--ink);
+  font-weight: 900;
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -164,6 +176,7 @@ h3 {
 }
 
 .device-art {
+  position: relative;
   display: grid;
   place-items: center;
   min-height: 440px;
@@ -172,9 +185,21 @@ h3 {
 .hero-device {
   display: block;
   width: 100%;
-  max-width: 410px;
+  max-width: 390px;
   height: auto;
   filter: drop-shadow(0 24px 29px rgba(16, 35, 43, .24));
+}
+
+.hero-device-secondary {
+  position: absolute;
+  right: -22px;
+  bottom: 18px;
+  width: 58%;
+  max-width: 248px;
+}
+
+.hero-device-main {
+  transform: translate(-24px, -12px);
 }
 
 .screen {
@@ -267,13 +292,17 @@ h3 {
 .notice {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 16px;
   margin-bottom: 28px;
   padding-top: 18px;
   padding-bottom: 18px;
   border-top: 3px solid var(--ink);
   border-bottom: 1px solid var(--line);
+}
+
+.notice strong {
+  white-space: nowrap;
 }
 
 .section {
@@ -305,6 +334,14 @@ h3 {
   padding: 22px;
 }
 
+.rear-power {
+  margin-top: 18px;
+}
+
+.rear-power p:last-child {
+  margin-bottom: 0;
+}
+
 .step-number {
   display: inline-grid;
   width: 36px;
@@ -325,6 +362,11 @@ h3 {
   color: var(--muted);
 }
 
+.firmware-exact {
+  margin: 8px 0 0;
+  font-weight: 900;
+}
+
 .split-section {
   display: grid;
   grid-template-columns: minmax(250px, .75fr) minmax(0, 1.25fr);
@@ -342,6 +384,31 @@ h3 {
 
 .copy-block li + li {
   margin-top: 10px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.feature-grid article {
+  min-height: 230px;
+  padding: 22px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.feature-grid p {
+  color: var(--muted);
+}
+
+.device-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 18px;
+  padding-left: 20px;
 }
 
 .small-note {
@@ -454,7 +521,18 @@ td {
     width: min(82vw, 390px);
   }
 
-  .steps {
+  .hero-device-main {
+    transform: none;
+  }
+
+  .hero-device-secondary {
+    right: 0;
+    bottom: -8px;
+    width: 48%;
+  }
+
+  .steps,
+  .feature-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -488,7 +566,9 @@ td {
     width: 100%;
   }
 
-  .steps {
+  .steps,
+  .feature-grid,
+  .device-list {
     grid-template-columns: 1fr;
   }
 

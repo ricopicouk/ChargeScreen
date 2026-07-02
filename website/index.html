@@ -15,9 +15,11 @@
         <span>ChargeScreen</span>
       </a>
       <div class="nav-links">
-        <a href="#use">Use</a>
+        <a href="#use">Howto</a>
+        <a href="#devices">Supported devices</a>
         <a href="#victron">Victron keys</a>
         <a href="#ble">BLE capture</a>
+        <a href="https://youtu.be/nBTKXf0SJtU">Video</a>
         <a href="#buy">Buy</a>
         <a href="#downloads">Firmware</a>
       </div>
@@ -29,20 +31,71 @@
       <div class="hero-copy">
         <p class="eyebrow">ESP32-C3 round display firmware</p>
         <h1>ChargeScreen</h1>
-        <p class="lede">A small standalone dashboard for Victron Bluetooth data, solar status, and battery experiments. Built for the JCZN ESP32-2424S012 round display.</p>
+        <p class="lede">A small standalone dashboard for Victron Bluetooth data, solar, chargers, batteries, and tank monitoring. Built for the JCZN ESP32-2424S012 round display.</p>
+        <p class="price-note"><strong>£35 delivered.</strong> I am not a business, just a guy with a hobby making something neat.</p>
         <div class="hero-actions">
           <a class="button primary" href="#downloads">Download latest</a>
           <a class="button secondary" href="#use">Setup guide</a>
         </div>
       </div>
       <div class="device-art">
-        <img class="hero-device" src="assets/chargescreen-device-logo.png?v=3" alt="ChargeScreen circular battery dashboard showing a segmented charge arc and four battery values">
+        <img class="hero-device hero-device-main" src="assets/chargescreen-shunt-mockup.svg" alt="ChargeScreen shunt dashboard showing state of charge and battery values">
+        <img class="hero-device hero-device-secondary" src="assets/chargescreen-mppt-mockup.svg" alt="ChargeScreen MPPT dashboard showing solar power and charge values">
       </div>
     </section>
 
     <section class="notice">
-      <strong>Current build: <span id="current-build">beta 4.16</span></strong>
-      <span>Use the latest build unless you are testing a specific older version.</span>
+      <strong>Current build: <span id="current-build">beta 7</span></strong>
+    </section>
+
+    <section id="features" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Beta 7</p>
+        <h2>A bigger, cleaner ChargeScreen</h2>
+      </div>
+      <div class="feature-grid">
+        <article>
+          <h3>Build your setup</h3>
+          <p>Choose the equipment fitted to your van from a clearer WiFi setup builder. Enable only the screens you need, add Victron keys where required, and keep demo mode available for previewing every screen.</p>
+        </article>
+        <article>
+          <h3>More Victron flexibility</h3>
+          <p>Add multiple keyed Victron devices of the same type, including shunts, MPPTs, mains chargers, Orion DC-DC chargers, BatteryProtect, Lynx BMS, DC Energy Meter, and Battery Sense.</p>
+        </article>
+        <article>
+          <h3>Mopeka tank screen</h3>
+          <p>Read Mopeka and Lippert Bluetooth tank sensors without a key. Show raw centimetres, calibrated percentage, or litres remaining, with the tank arc following calibrated fill percentage.</p>
+        </article>
+        <article>
+          <h3>Ready for future updates</h3>
+          <p>Beta 7 uses the newer larger OTA partition layout only, giving more room for future firmware while keeping web updates, BLE capture, dimming, timeout, rotation, labels, and value grid options.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="devices" class="section split-section alt">
+      <div class="section-heading">
+        <p class="eyebrow">Supported devices</p>
+        <h2>What ChargeScreen can show</h2>
+      </div>
+      <div class="copy-block">
+        <ul class="device-list">
+          <li>Victron SmartShunt / BMV Battery Monitor</li>
+          <li>Victron SmartSolar MPPT</li>
+          <li>Victron Blue Smart mains charger</li>
+          <li>Victron Orion DC-DC charger</li>
+          <li>Victron Smart BatteryProtect</li>
+          <li>Victron Lynx Smart BMS</li>
+          <li>Victron DC Energy Meter</li>
+          <li>Victron Smart Battery Sense</li>
+          <li>Eco-Worthy Bluetooth Battery</li>
+          <li>Fogstar Drift Battery <strong>**</strong></li>
+          <li>Roamer Bluetooth Battery <strong>**</strong></li>
+          <li>Mopeka / Lippert Bluetooth tank sensor</li>
+        </ul>
+        <p class="small-note">Victron devices need their Instant Readout key from VictronConnect. Eco-Worthy, Fogstar, Roamer, and Mopeka devices normally do not need a key.</p>
+        <p class="small-note"><strong>**</strong> Fogstar Drift and Roamer support is included, but more testing is required to get it perfect across all battery/app variants.</p>
+      </div>
     </section>
 
     <section id="use" class="section">
@@ -54,12 +107,12 @@
         <article>
           <span class="step-number">1</span>
           <h3>Power on</h3>
-          <p id="power-instructions">Power ChargeScreen using USB-C or the rear connector. If using the rear connector, plug it in carefully with the red wire closest to the USB-C port. Follow this position, not the cable colours: voltage and ground use the opposite colours to the usual convention. The tiny JST 1.25 connector was left this way because depinning it risked damaging the plug.</p>
+          <p id="power-instructions">Power ChargeScreen using USB-C, or if you bought a rear power supply cable, carefully plug it in and make sure the notch on the cable lines up with the gap on the plug.</p>
         </article>
         <article>
           <span class="step-number">2</span>
           <h3>Open settings</h3>
-          <p>Tap the cog on the bottom of the round display, then tap WiFi. Join the temporary hotspot named <strong>ChargeScreen</strong>.</p>
+          <p>Tap the three dots at the bottom of the round display, then tap WiFi. Join the temporary hotspot named <strong>ChargeScreen</strong>.</p>
         </article>
         <article>
           <span class="step-number">3</span>
@@ -69,8 +122,14 @@
         <article>
           <span class="step-number">4</span>
           <h3>Save your settings</h3>
-          <p>Paste Victron Instant Readout keys, select sources, set screen rotation, dimming, screen timeout, demo values, and solar panel watts.</p>
+          <p>Use Build Your Setup to pick screens, paste Victron Instant Readout keys, set charger ratings, configure Mopeka calibration, and adjust rotation, dimming, timeout, labels, and value grids.</p>
         </article>
+      </div>
+      <div class="copy-block rear-power">
+        <h3>Rear power cable</h3>
+        <p>ChargeScreen can also be powered from a rear cable that I make with a step-down converter. Carefully plug it in with the notch on the cable lined up with the gap on the plug.</p>
+        <p>The awkward bit is startup: when powered from the rear plug, the device currently needs the recessed side button pressed each time it powers on. It is a pain to reach and usually needs a small pokey stick. A 3D printed button design is in progress, but it is not ready yet.</p>
+        <p>The upside is that the device uses very little power. At 12V it draws around 0.5W, and with the screen off it drops to about 0.3W, so it can be left on 24/7 without any real issue.</p>
       </div>
     </section>
 
@@ -82,7 +141,7 @@
       <div class="copy-block">
         <p id="victron-intro">ChargeScreen reads Victron Instant Readout Bluetooth adverts. Those adverts are encrypted, so each Victron device needs its own Instant Readout encryption data.</p>
         <ol>
-          <li id="victron-first-step">Open the VictronConnect app near your Victron Shunt or Victron MPPT solar controller.</li>
+          <li id="victron-first-step">Open the VictronConnect app near your Victron device.</li>
           <li>Connect to the Victron device over Bluetooth.</li>
           <li>Open settings, tap the three dots, then open Product info.</li>
           <li>Enable Instant Readout if it is not already enabled.</li>
@@ -133,10 +192,11 @@
         <div class="latest">
           <div>
             <p class="eyebrow">Latest</p>
-            <h3 id="latest-version">beta 4.16</h3>
-            <p id="latest-summary">Adds the optional battery value grid, a third settings page, updated setup guidance, and an improved firmware-update reconnect screen.</p>
+            <h3 id="latest-version">beta 7</h3>
+            <p class="firmware-exact">Exact firmware: <span id="latest-exact-firmware">Beta7.06</span></p>
+            <p id="latest-summary">Moves on from beta 6.33 with the setup builder, multi-device Victron support, Mopeka tank monitoring, and the new larger OTA partition layout.</p>
           </div>
-          <a id="latest-download" class="button primary" href="https://github.com/ricopicouk/ChargeScreen/releases/download/v4.16-beta/Beta.4.16.bin">Download beta 4.16</a>
+          <a id="latest-download" class="button primary" href="https://github.com/ricopicouk/ChargeScreen/releases/download/Beta7.06/Beta7.06.bin">Download Beta7.06.bin</a>
         </div>
         <div class="table-wrap">
           <table>
@@ -150,10 +210,10 @@
             </thead>
             <tbody>
               <tr>
-                <td id="table-version">beta 4.16</td>
+                <td><span id="table-version">beta 7</span><br><small id="table-exact-firmware">Beta7.06</small></td>
                 <td><span class="tag good">Latest</span></td>
-                <td id="table-changes">Adds the battery value grid and grid toggle, three settings pages, updated WiFi-page instructions and contacts, and a clearer post-update reconnect flow.</td>
-                <td><a id="table-download" href="https://github.com/ricopicouk/ChargeScreen/releases/download/v4.16-beta/Beta.4.16.bin">Firmware</a></td>
+                <td id="table-changes">Adds a clearer Build Your Setup flow, multi-device keyed Victron support, Mopeka tank display options, shunt refresh control, display polish, and the new larger OTA-only partition layout.</td>
+                <td><a id="table-download" href="https://github.com/ricopicouk/ChargeScreen/releases/download/Beta7.06/Beta7.06.bin">Firmware</a></td>
               </tr>
             </tbody>
           </table>
