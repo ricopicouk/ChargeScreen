@@ -17,12 +17,16 @@
     };
 
     const version = content.firmware?.version;
+    const exactVersion = content.firmware?.exact_version;
     setText("current-build", version);
+    setText("exact-firmware", exactVersion);
     setText("latest-version", version);
+    setText("latest-exact-firmware", exactVersion);
     setText("latest-summary", content.firmware?.summary);
     setText("table-version", version);
+    setText("table-exact-firmware", exactVersion);
     setText("table-changes", content.firmware?.changes);
-    setLink("latest-download", content.firmware?.download_url, version ? `Download ${version}` : "");
+    setLink("latest-download", content.firmware?.download_url, content.firmware?.download_text || (exactVersion ? `Download ${exactVersion}.bin` : ""));
     setLink("table-download", content.firmware?.download_url, "Firmware");
 
     const generalEmail = content.contact?.general_email;
