@@ -3,8 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ChargeScreen Firmware</title>
-  <meta name="description" content="ChargeScreen firmware downloads and setup guide for the ESP32-C3 round battery dashboard.">
+  <title>ChargeScreen - ESP32-C3 Victron Battery Display</title>
+  <meta name="description" content="ChargeScreen is a compact ESP32-C3 round display for Victron Bluetooth battery, solar, charger, and tank data, with firmware downloads, setup guides, and premade units.">
+  <meta property="og:title" content="ChargeScreen - ESP32-C3 Victron Battery Display">
+  <meta property="og:description" content="A compact round ESP32-C3 dashboard for Victron Bluetooth battery, solar, charger, and tank data. Download firmware, follow setup guides, or view premade ChargeScreen units.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/chargescreen-device-logo.png?v=3">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ChargeScreen - ESP32-C3 Victron Battery Display">
+  <meta name="twitter:description" content="A compact round ESP32-C3 dashboard for Victron Bluetooth battery, solar, charger, and tank data, with firmware downloads and premade units.">
+  <meta name="twitter:image" content="assets/chargescreen-device-logo.png?v=3">
   <link rel="icon" href="assets/chargescreen-device-logo.png?v=3">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -32,7 +40,7 @@
         <p class="eyebrow">ESP32-C3 round display firmware</p>
         <h1>ChargeScreen</h1>
         <p class="lede">A small standalone dashboard for Victron Bluetooth data, solar, chargers, batteries, and tank monitoring. Built for the JCZN ESP32-2424S012 round display.</p>
-        <p class="price-note"><strong>£40 delivered.</strong> I am not a business, just a guy with a hobby making something neat.</p>
+        <p class="price-note"><strong>&pound;40 + postage.</strong> Built, packed, and supported as a one-person project, so availability and international delivery may take a little patience.</p>
         <div class="hero-actions">
           <a class="button primary" href="#downloads">Download latest</a>
           <a class="button secondary" href="#use">Setup guide</a>
@@ -178,8 +186,26 @@
         <h2>Buy a premade ChargeScreen</h2>
       </div>
       <div class="copy-block">
-        <p id="purchase-text">ChargeScreen units are available premade and supplied with the firmware already installed. Visit the T6 Forum project thread for availability, discussion, and ordering details.</p>
-        <a id="purchase-link" class="button primary" href="https://www.t6forum.com/threads/standalone-esp32-ble-battery-display-for-victron-systems.66515/">View the T6 Forum thread</a>
+        <p id="purchase-text">ChargeScreen units are available premade and supplied with the firmware already installed. The device is &pound;40, with postage added at checkout.</p>
+        <div class="customs-note" aria-label="International customs notice">
+          <h3>International orders and customs</h3>
+          <p>I am happy to post internationally, but any import fees, VAT, customs charges, courier handling fees, or local taxes are the buyer's responsibility. These charges can add up, so please check what your country may charge before ordering.</p>
+          <p><strong>EU customers:</strong> from 1 July 2026, low-value parcels up to &euro;150 imported from outside the EU may also have a temporary &euro;3 customs duty per item. This is separate from postage and any VAT or handling fees charged when the parcel arrives.</p>
+        </div>
+        <p class="store-link-note">Want more photos? <a class="text-link" href="https://chargescreen.myshopify.com/">View the full ChargeScreen store</a>.</p>
+        <!-- If you are reading this and thinking of bypassing the password: there is nothing to buy yet. The shop is locked while I finish testing stock, postage, and checkout. -->
+        <form id="buy-gate" class="buy-gate" aria-label="Buy section password">
+          <label for="buy-password">Password required to view buying options</label>
+          <div class="buy-gate-row">
+            <input id="buy-password" name="buy-password" type="password" autocomplete="off">
+            <button class="button primary" type="submit">Unlock</button>
+          </div>
+          <p id="buy-gate-message" class="buy-gate-message" aria-live="polite">Buying options are hidden while this site is public on GitHub.</p>
+        </form>
+        <div id="shopify-products" class="shopify-products" aria-label="ChargeScreen products" hidden>
+          <div id="product-component-1783868010061" class="shopify-product"></div>
+          <div id="product-component-1783868059346" class="shopify-product"></div>
+        </div>
       </div>
     </section>
 
@@ -235,5 +261,6 @@
     <a id="general-email" href="mailto:contact@chargescreen.co.uk">contact@chargescreen.co.uk</a>
   </footer>
   <script src="site-content.js"></script>
+  <script src="shopify-buy.js"></script>
 </body>
 </html>
