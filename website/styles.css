@@ -425,6 +425,80 @@ h3 {
   border-top: 6px solid var(--green);
 }
 
+.shopify-products {
+  display: grid;
+  gap: 22px;
+  margin-top: 24px;
+}
+
+.shopify-products[hidden] {
+  display: none;
+}
+
+.buy-gate {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 20px;
+  background: #effbf4;
+  border: 2px solid var(--green);
+}
+
+.buy-gate label {
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.buy-gate-row {
+  display: flex;
+  gap: 10px;
+}
+
+.buy-gate input {
+  min-width: 0;
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  font: inherit;
+}
+
+.buy-gate-message {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.buy-gate-message.error {
+  color: var(--red);
+  font-weight: 900;
+}
+
+.customs-note {
+  margin-top: 22px;
+  padding: 20px;
+  background: #fff7df;
+  border: 2px solid var(--amber);
+}
+
+.customs-note h3 {
+  font-size: 20px;
+}
+
+.customs-note p:last-child {
+  margin-bottom: 0;
+}
+
+.store-link-note {
+  margin: 18px 0 0;
+}
+
+.shopify-product:last-child > div {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
 .download-panel {
   padding: 0;
   overflow: hidden;
@@ -557,7 +631,8 @@ td {
 
   .hero-actions,
   .latest,
-  .notice {
+  .notice,
+  .buy-gate-row {
     align-items: stretch;
     flex-direction: column;
   }

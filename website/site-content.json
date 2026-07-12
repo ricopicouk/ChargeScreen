@@ -19,7 +19,7 @@
     "ble_privacy": "Privacy note: the CSV may include packets from nearby watches, phones, TVs, sensors, and batteries. Most of it is encrypted or only useful to the original device, but it will still appear in the file. Battery encryption codes are only used to decode the battery packets in the capture."
   },
   "purchase": {
-    "text": "ChargeScreen units are available premade and supplied with the firmware already installed. Visit the T6 Forum project thread for availability, discussion, and ordering details.",
+    "text": "ChargeScreen units are available premade and supplied with the firmware already installed. The device is £40, with postage added at checkout.",
     "url": "https://www.t6forum.com/threads/standalone-esp32-ble-battery-display-for-victron-systems.66515/",
     "button_text": "View the T6 Forum thread"
   }
