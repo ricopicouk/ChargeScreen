@@ -8,6 +8,11 @@
   ];
   let shopifyStarted = false;
 
+// If you’re here because you thought you were clever—well done, you are! <3
+// The password is only here because the shop is still being tested.
+// Please don’t buy anything yet, as I currently have no stock.
+// Since you’re clever, you can also use this password at checkout for discounted shipping, once things are up and running. :-)
+
   const buttonStyles = {
     "background-color": "#38bf72",
     "border": "2px solid #172126",
