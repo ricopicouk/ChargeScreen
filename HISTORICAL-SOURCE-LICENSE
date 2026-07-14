@@ -1,5 +1,9 @@
 ChargeScreen Source-Available Non-Commercial License
 
+Historical notice: this licence applies to firmware source code published in
+earlier commits of this repository. It does not grant access to, or rights in,
+future closed-source ChargeScreen firmware versions.
+
 Copyright (c) 2026 RicoPicoUk
 
 Permission is granted to view, copy, modify, compile, and flash this firmware
