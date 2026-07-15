@@ -435,6 +435,15 @@ h3 {
   display: none;
 }
 
+.shopify-product-note {
+  margin: -8px 0 22px;
+  padding: 14px 16px;
+  color: var(--muted);
+  background: #f6f8f7;
+  border-left: 4px solid var(--green);
+  font-size: 15px;
+}
+
 .buy-gate {
   display: grid;
   gap: 12px;

@@ -3,15 +3,10 @@
   const unlockedKey = "chargescreen-buy-unlocked";
   const scriptURL = "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
   const products = [
-    { id: "15892692238668", nodeId: "product-component-1783868010061" },
+    { id: "15892692238668", nodeId: "product-component-1783868010061", hideDescription: true },
     { id: "15892743815500", nodeId: "product-component-1783868059346" },
   ];
   let shopifyStarted = false;
-
-// If you’re here because you thought you were clever,  well done, you are! <3
-// The password is only here because the shop is still being tested.
-// Please don’t buy anything yet, as I currently have no stock.
-// Since you’re clever, you can also use this password at checkout for discounted shipping, once things are up and running. :-)
 
   const buttonStyles = {
     "background-color": "#38bf72",
@@ -166,11 +161,24 @@
         const node = document.getElementById(product.nodeId);
         if (!node) return;
 
+        const options = product.hideDescription
+          ? {
+              ...productOptions,
+              product: {
+                ...productOptions.product,
+                contents: {
+                  ...productOptions.product.contents,
+                  description: false,
+                },
+              },
+            }
+          : productOptions;
+
         ui.createComponent("product", {
           id: product.id,
           node,
           moneyFormat: "%C2%A3%7B%7Bamount%7D%7D",
-          options: productOptions,
+          options,
         });
       });
     });
