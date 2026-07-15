@@ -1,11 +1,9 @@
 {
   "firmware": {
-    "version": "beta 7",
-    "exact_version": "Beta7.06",
-    "download_url": "https://github.com/ricopicouk/ChargeScreen/releases/download/Beta7.06/Beta7.06.bin",
-    "download_text": "Download Beta7.06.bin",
-    "summary": "Moves on from beta 6.33 with the setup builder, multi-device Victron support, Mopeka tank monitoring, and the new larger OTA partition layout.",
-    "changes": "Adds a clearer Build Your Setup flow, multi-device keyed Victron support, Mopeka tank display options, shunt refresh control, display polish, and the new larger OTA-only partition layout."
+    "version": "Beta 8.16",
+    "download_url": "https://github.com/ricopicouk/ChargeScreen/releases/download/Beta8.16/Beta8.16.bin",
+    "summary": "Beta 8 is a substantial update over Beta 7, adding new device support, much more personalisation and several important fixes.",
+    "changes": "ChargeScreen Beta 8\n\nBeta 8 is a substantial update over Beta 7, adding new device support, much more personalisation and several important fixes.\n\nNew device support\n\n    ABC-BMS battery family, including compatible ABC, SOK, NB and Hoover app devices\n    Victron Phoenix Inverter monitoring, showing power, battery voltage, AC output, operating state and alarms\n\nMore personalisation\n\n    Give each screen or connected device its own custom name\n    Customise the colours of individual screens\n    Multiple devices of the same type can have their own names, colours and settings\n\nImproved alarm handling\n\n    Victron alarms are now shown visually on ChargeScreen\n    When an alarm is detected, ChargeScreen automatically takes you to the affected device’s screen\n    Alarm information is displayed clearly so it is easier to see which device needs attention\n\nBattery improvements and bug fixes\n\n    Fixed several problems when using multiple Bluetooth batteries\n    Fogstar state-of-charge now follows the percentage reported by the battery, preventing incorrect readings above 100%\n    Improved Roamer compatibility\n    Improved battery discovery, selection and connection handling\n\nThe alarm feature is still being tested, so ChargeScreen should not be used as the only warning or safety system. Always continue to rely on the protection and alarm features built into your equipment.\n\nThank you to everyone who has tested the firmware, reported problems and supplied Bluetooth captures.\nThose reports have been a huge help in improving Beta 8."
   },
   "contact": {
     "general_email": "contact@chargescreen.co.uk",
@@ -19,8 +17,8 @@
     "ble_privacy": "Privacy note: the CSV may include packets from nearby watches, phones, TVs, sensors, and batteries. Most of it is encrypted or only useful to the original device, but it will still appear in the file. Battery encryption codes are only used to decode the battery packets in the capture."
   },
   "purchase": {
-    "text": "ChargeScreen units are available premade and supplied with the firmware already installed. The device is £40, with postage added at checkout.",
-    "url": "https://www.t6forum.com/threads/standalone-esp32-ble-battery-display-for-victron-systems.66515/",
-    "button_text": "View the T6 Forum thread"
+    "text": "ChargeScreen units are available premade and supplied with the firmware already installed. The device is £40, with postage added at checkout.\n\nPostage to rest of the world is fine, but fees and custom charges may be possible, these can really add up. ",
+    "url": "Chargescreen.co.uk",
+    "button_text": "Chargescreen.co.uk"
   }
 }
