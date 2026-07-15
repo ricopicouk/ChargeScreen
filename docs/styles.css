@@ -444,46 +444,21 @@ h3 {
   font-size: 15px;
 }
 
-.buy-gate {
-  display: grid;
-  gap: 12px;
-  margin-top: 24px;
+.stock-note {
+  margin-top: 22px;
   padding: 20px;
   background: #effbf4;
   border: 2px solid var(--green);
 }
 
-.buy-gate label {
-  color: var(--ink);
-  font-weight: 900;
+.stock-note h3 {
+  font-size: 20px;
 }
 
-.buy-gate-row {
-  display: flex;
-  gap: 10px;
+.stock-note p,
+.stock-note p:last-child {
+  margin-bottom: 0;
 }
-
-.buy-gate input {
-  min-width: 0;
-  width: 100%;
-  min-height: 46px;
-  padding: 10px 12px;
-  border: 2px solid var(--ink);
-  color: var(--ink);
-  font: inherit;
-}
-
-.buy-gate-message {
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.buy-gate-message.error {
-  color: var(--red);
-  font-weight: 900;
-}
-
 .customs-note {
   margin-top: 22px;
   padding: 20px;
@@ -640,8 +615,7 @@ td {
 
   .hero-actions,
   .latest,
-  .notice,
-  .buy-gate-row {
+  .notice {
     align-items: stretch;
     flex-direction: column;
   }

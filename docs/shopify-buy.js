@@ -1,6 +1,4 @@
 (function () {
-  const buyPassword = "potato";
-  const unlockedKey = "chargescreen-buy-unlocked";
   const scriptURL = "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
   const products = [
     { id: "15892692238668", nodeId: "product-component-1783868010061", hideDescription: true },
@@ -104,44 +102,6 @@
     option: {},
   };
 
-  function showProducts() {
-    const gate = document.getElementById("buy-gate");
-    const productsWrap = document.getElementById("shopify-products");
-
-    if (gate) gate.hidden = true;
-    if (productsWrap) productsWrap.hidden = false;
-  }
-
-  function unlockBuySection() {
-    sessionStorage.setItem(unlockedKey, "true");
-    showProducts();
-    startShopify();
-  }
-
-  function setupBuyGate() {
-    const gate = document.getElementById("buy-gate");
-    const input = document.getElementById("buy-password");
-    const message = document.getElementById("buy-gate-message");
-
-    if (!gate || !input) return;
-
-    gate.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      if (input.value === buyPassword) {
-        unlockBuySection();
-        return;
-      }
-
-      input.value = "";
-      input.focus();
-      if (message) {
-        message.textContent = "Incorrect password.";
-        message.classList.add("error");
-      }
-    });
-  }
-
   function loadScript() {
     const script = document.createElement("script");
     script.async = true;
@@ -199,10 +159,5 @@
     }
   }
 
-  setupBuyGate();
-
-  if (sessionStorage.getItem(unlockedKey) === "true") {
-    showProducts();
-    startShopify();
-  }
+  startShopify();
 })();
