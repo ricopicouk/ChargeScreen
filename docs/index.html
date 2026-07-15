@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ChargeScreen - ESP32-C3 Victron Battery Display</title>
-  <meta name="description" content="ChargeScreen is a compact ESP32-C3 round display for Victron Bluetooth battery, solar, charger, and tank data, with firmware downloads, setup guides, and premade units.">
-  <meta property="og:title" content="ChargeScreen - ESP32-C3 Victron Battery Display">
-  <meta property="og:description" content="A compact round ESP32-C3 dashboard for Victron Bluetooth battery, solar, charger, and tank data. Download firmware, follow setup guides, or view premade ChargeScreen units.">
+  <title>ChargeScreen - Bluetooth Battery and Power Display</title>
+  <meta name="description" content="ChargeScreen is a compact ESP32-C3 dashboard for Victron equipment, supported Bluetooth batteries, solar chargers, inverters, and tank sensors.">
+  <meta property="og:title" content="ChargeScreen - Bluetooth Battery and Power Display">
+  <meta property="og:description" content="A compact round dashboard for battery, solar, charger, inverter, and tank data. Download the firmware or buy a premade ChargeScreen.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/chargescreen-device-logo.png?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ChargeScreen - ESP32-C3 Victron Battery Display">
-  <meta name="twitter:description" content="A compact round ESP32-C3 dashboard for Victron Bluetooth battery, solar, charger, and tank data, with firmware downloads and premade units.">
+  <meta name="twitter:title" content="ChargeScreen - Bluetooth Battery and Power Display">
+  <meta name="twitter:description" content="A compact round dashboard for battery, solar, charger, inverter, and tank data, with firmware downloads and premade units.">
   <meta name="twitter:image" content="assets/chargescreen-device-logo.png?v=3">
   <link rel="icon" href="assets/chargescreen-device-logo.png?v=3">
   <link rel="stylesheet" href="styles.css">
@@ -39,7 +39,7 @@
       <div class="hero-copy">
         <p class="eyebrow">ESP32-C3 round display firmware</p>
         <h1>ChargeScreen</h1>
-        <p class="lede">A small standalone dashboard for Victron Bluetooth data, solar, chargers, batteries, and tank monitoring. Built for the JCZN ESP32-2424S012 round display.</p>
+        <p class="lede">A small standalone Bluetooth dashboard for battery, solar, charging, inverter, and tank data. Built for the JCZN ESP32-2424S012 round display.</p>
         <p class="price-note"><strong>&pound;40 + postage.</strong> Built, packed, and supported as a one-person project, so availability and international delivery may take a little patience.</p>
         <div class="hero-actions">
           <a class="button primary" href="#downloads">Download latest</a>
@@ -58,8 +58,33 @@
 
     <section id="features" class="section">
       <div class="section-heading">
+        <p class="eyebrow">Beta 8</p>
+        <h2>More personal, more compatible, and easier to monitor</h2>
+      </div>
+      <div class="feature-grid">
+        <article>
+          <h3>Make every screen yours</h3>
+          <p>Give each connected device its own name and choose individual colours for its screen. Multiple devices of the same type can each have a clear identity.</p>
+        </article>
+        <article>
+          <h3>Clearer alarm alerts</h3>
+          <p>Victron alarms now produce a visual warning and take you directly to the affected device screen. Alarm support is still being tested and should not replace the equipment's own safety systems.</p>
+        </article>
+        <article>
+          <h3>More device support</h3>
+          <p>Adds Victron Phoenix Inverter monitoring and support for the ABC-BMS battery family, alongside improved compatibility for Roamer and Fogstar batteries.</p>
+        </article>
+        <article>
+          <h3>Better multi-device setups</h3>
+          <p>Improved device discovery, selection, and data handling make systems with several batteries or repeated Victron devices more reliable and easier to organise.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="beta7" class="section">
+      <div class="section-heading">
         <p class="eyebrow">Beta 7</p>
-        <h2>A bigger, cleaner ChargeScreen</h2>
+        <h2>The foundation introduced in Beta 7</h2>
       </div>
       <div class="feature-grid">
         <article>
@@ -98,13 +123,13 @@
           <li>Victron DC Energy Meter</li>
           <li>Victron Smart Battery Sense</li>
           <li>Eco-Worthy Bluetooth Battery</li>
-          <li>Fogstar Drift Battery <strong>**</strong></li>
-          <li>Roamer Bluetooth Battery <strong>**</strong></li>
-          <li>ABC-BMS Bluetooth Battery family (ABC, SOK, NB and Hoover app devices)</li>
+          <li>Fogstar Drift Battery</li>
+          <li>Roamer Bluetooth Battery</li>
+          <li>ABC-BMS Bluetooth Battery family (ABC, SOK, NB and Hoover app devices) <strong>**</strong></li>
           <li>Mopeka / Lippert Bluetooth tank sensor</li>
         </ul>
         <p class="small-note">Victron devices need their Instant Readout key from VictronConnect. Eco-Worthy, Fogstar, Roamer, ABC-BMS family batteries, and Mopeka devices normally do not need a key.</p>
-        <p class="small-note"><strong>**</strong> Fogstar Drift and Roamer support is included, but more testing is required to get it perfect across all battery/app variants.</p>
+        <p class="small-note"><strong>**</strong> ABC-BMS support is new and still being tested across the different ABC, SOK, NB, and Hoover app variants.</p>
       </div>
     </section>
 
