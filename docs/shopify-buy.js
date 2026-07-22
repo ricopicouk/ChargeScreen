@@ -1,9 +1,7 @@
 (function () {
-  const buyPassword = "potato";
-  const unlockedKey = "chargescreen-buy-unlocked";
   const scriptURL = "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
   const products = [
-    { id: "15892692238668", nodeId: "product-component-1783868010061" },
+    { id: "15892692238668", nodeId: "product-component-1783868010061", hideDescription: true },
     { id: "15892743815500", nodeId: "product-component-1783868059346" },
     { id: "15919333310796", nodeId: "product-component-1784723796823" },
   ];
@@ -105,44 +103,6 @@
     option: {},
   };
 
-  function showProducts() {
-    const gate = document.getElementById("buy-gate");
-    const productsWrap = document.getElementById("shopify-products");
-
-    if (gate) gate.hidden = true;
-    if (productsWrap) productsWrap.hidden = false;
-  }
-
-  function unlockBuySection() {
-    sessionStorage.setItem(unlockedKey, "true");
-    showProducts();
-    startShopify();
-  }
-
-  function setupBuyGate() {
-    const gate = document.getElementById("buy-gate");
-    const input = document.getElementById("buy-password");
-    const message = document.getElementById("buy-gate-message");
-
-    if (!gate || !input) return;
-
-    gate.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      if (input.value === buyPassword) {
-        unlockBuySection();
-        return;
-      }
-
-      input.value = "";
-      input.focus();
-      if (message) {
-        message.textContent = "Incorrect password.";
-        message.classList.add("error");
-      }
-    });
-  }
-
   function loadScript() {
     const script = document.createElement("script");
     script.async = true;
@@ -162,11 +122,24 @@
         const node = document.getElementById(product.nodeId);
         if (!node) return;
 
+        const options = product.hideDescription
+          ? {
+              ...productOptions,
+              product: {
+                ...productOptions.product,
+                contents: {
+                  ...productOptions.product.contents,
+                  description: false,
+                },
+              },
+            }
+          : productOptions;
+
         ui.createComponent("product", {
           id: product.id,
           node,
           moneyFormat: "%C2%A3%7B%7Bamount%7D%7D",
-          options: productOptions,
+          options,
         });
       });
     });
@@ -187,10 +160,5 @@
     }
   }
 
-  setupBuyGate();
-
-  if (sessionStorage.getItem(unlockedKey) === "true") {
-    showProducts();
-    startShopify();
-  }
+  startShopify();
 })();
