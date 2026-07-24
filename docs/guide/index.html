@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChargeScreen User Guide — Simple Setup and Help</title>
+  <meta name="description" content="A simple step-by-step guide to setting up and using ChargeScreen, including Victron keys, display controls, troubleshooting, and firmware updates.">
+  <meta property="og:title" content="ChargeScreen User Guide">
+  <meta property="og:description" content="Simple, step-by-step help for setting up and using ChargeScreen.">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://chargescreen.co.uk/assets/chargescreen-device-logo.png?v=3">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ChargeScreen User Guide">
+  <meta name="twitter:description" content="Simple, step-by-step help for setting up and using ChargeScreen.">
+  <meta name="twitter:image" content="https://chargescreen.co.uk/assets/chargescreen-device-logo.png?v=3">
+  <link rel="icon" href="../assets/chargescreen-shunt-mockup.svg">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="guide.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="User guide navigation">
+      <a class="brand" href="../" aria-label="ChargeScreen home">
+        <span>ChargeScreen</span>
+      </a>
+      <div class="nav-links">
+        <a href="#first-setup">First setup</a>
+        <a href="#everyday-use">Everyday use</a>
+        <a href="#screen-guide">Screen guide</a>
+        <a href="#problems">Help</a>
+        <a href="#updates">Updates</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top" class="guide-main">
+    <section class="guide-hero">
+      <div class="guide-hero-copy">
+        <p class="eyebrow">Simple step-by-step help</p>
+        <h1>ChargeScreen user guide</h1>
+        <p class="lede">You do not need to understand Bluetooth or electronics. Follow the first setup once, then ChargeScreen works by itself.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#first-setup">Set up my ChargeScreen</a>
+          <a class="button secondary" href="#problems">Something is not working</a>
+        </div>
+      </div>
+      <div class="guide-device-art" aria-label="Examples of ChargeScreen battery and solar displays">
+        <img src="../assets/chargescreen-shunt-mockup.svg" alt="ChargeScreen battery screen showing battery percentage, volts, amps and watts">
+        <img src="../assets/chargescreen-mppt-mockup.svg" alt="ChargeScreen solar screen showing solar power and charging information">
+      </div>
+    </section>
+
+    <aside class="quick-answer" aria-label="The most important thing to know">
+      <span class="quick-answer-icon" aria-hidden="true">i</span>
+      <div>
+        <h2>The important bit</h2>
+        <p>ChargeScreen creates its own temporary Wi‑Fi network for setup. This network does not provide internet access—that is normal. Your phone connects to it only while you change settings.</p>
+      </div>
+    </aside>
+
+    <section id="first-setup" class="guide-section">
+      <div class="guide-heading">
+        <p class="eyebrow">Do this once</p>
+        <h2>First-time setup</h2>
+        <p>Allow about five minutes. Keep ChargeScreen powered throughout.</p>
+      </div>
+
+      <ol class="big-steps">
+        <li>
+          <div class="step-copy">
+            <h3>Power on ChargeScreen</h3>
+            <p>Use its USB‑C socket. If you bought the optional rear power cable, line up the notch on the cable with the gap in the plug before connecting it.</p>
+            <p class="small-note"><strong>Rear cable:</strong> after power is applied, you may need to press the recessed side button with a small blunt tool to start the display.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-copy">
+            <h3>Open Settings</h3>
+            <p>Tap the <strong>three dots</strong> at the bottom of the round screen.</p>
+            <div class="mini-screen" aria-label="Diagram showing three dots at the bottom of the ChargeScreen">
+              <span>Tap here</span>
+              <i></i><i></i><i></i>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-copy">
+            <h3>Turn on setup Wi‑Fi</h3>
+            <p>Tap the row marked <strong>WiFi</strong>. It should change to <strong>On</strong>.</p>
+            <p class="small-note">Shortcut: hold the rear button for two seconds to turn setup Wi‑Fi on or off. Never hold that button while switching the power on.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-copy">
+            <h3>Connect your phone</h3>
+            <p>Open Wi‑Fi settings on your phone and join the network named <strong>ChargeScreen</strong>.</p>
+            <div class="plain-warning">
+              <strong>Your phone may say “No internet”.</strong>
+              <span>Choose to stay connected. Nothing is wrong.</span>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-copy">
+            <h3>Open the setup page</h3>
+            <p>Your phone may open it automatically. If it does not, open your normal web browser and enter:</p>
+            <p class="address"><a href="http://192.168.4.1/">192.168.4.1</a></p>
+            <p class="small-note">This address works only while your phone is connected to the ChargeScreen network.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-copy">
+            <h3>Add your equipment</h3>
+            <p>Find <strong>Build Your Setup</strong>. Press the green <strong>+</strong> beside each device fitted to your vehicle. Add only devices you actually have.</p>
+            <p>If you have two of the same type, press <strong>+</strong> again. You can add up to four of each supported device.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-copy">
+            <h3>Add Victron keys</h3>
+            <p>Every Victron device needs its own <strong>Instant Readout key</strong>. Non‑Victron batteries and Mopeka sensors are normally found automatically.</p>
+            <a class="text-link" href="#victron-key">Show me how to find a Victron key</a>
+          </div>
+        </li>
+        <li>
+          <div class="step-copy">
+            <h3>Save, then check the screen</h3>
+            <p>Press <strong>Save Settings</strong>. Wait a few seconds, then swipe sideways on the round display. You should see only the screens you added.</p>
+            <div class="done-box"><strong>That’s it.</strong> ChargeScreen does not need your phone or Wi‑Fi for normal use.</div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="victron-key" class="guide-section split-guide">
+      <div class="guide-heading">
+        <p class="eyebrow">Victron equipment only</p>
+        <h2>Find your Instant Readout key</h2>
+        <p>This is not the PIN printed on the Victron device.</p>
+      </div>
+      <div class="guide-card">
+        <ol class="compact-steps">
+          <li>Open <strong>VictronConnect</strong> near your Victron device.</li>
+          <li>Connect to the device using Bluetooth.</li>
+          <li>Open <strong>Settings</strong>, tap the <strong>three dots</strong>, then open <strong>Product info</strong>.</li>
+          <li>Make sure <strong>Instant Readout</strong> is enabled.</li>
+          <li>Open its encryption details and choose <strong>Show</strong>.</li>
+          <li>Copy the key into the matching device box on the ChargeScreen setup page.</li>
+        </ol>
+        <div class="plain-warning">
+          <strong>Use one key per device.</strong>
+          <span>A SmartShunt key will not work for your MPPT, charger, or another shunt.</span>
+        </div>
+        <p class="small-note">VictronConnect wording can vary slightly by app version and product.</p>
+        <a class="text-link" href="https://www.victronenergy.com/media/pg/VictronConnect_Manual/en/stored-trends---instant-readout.html">Open the VictronConnect manual</a>
+      </div>
+    </section>
+
+    <section id="everyday-use" class="guide-section">
+      <div class="guide-heading">
+        <p class="eyebrow">Once setup is finished</p>
+        <h2>Everyday use</h2>
+      </div>
+      <div class="control-grid">
+        <article>
+          <span class="control-icon" aria-hidden="true">↔</span>
+          <h3>Change screen</h3>
+          <p>Swipe left or right. A short press of the rear button also moves to the next screen.</p>
+        </article>
+        <article>
+          <span class="control-icon dots-icon" aria-hidden="true">•••</span>
+          <h3>Open Settings</h3>
+          <p>Tap the three dots at the bottom of any normal screen.</p>
+        </article>
+        <article>
+          <span class="control-icon" aria-hidden="true">☝</span>
+          <h3>Wake the display</h3>
+          <p>Touch once and release. Then touch again if you want to press a control.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="settings" class="guide-section split-guide">
+      <div class="guide-heading">
+        <p class="eyebrow">The round screen</p>
+        <h2>Settings explained</h2>
+        <p>Swipe sideways while Settings is open to move through its four pages.</p>
+      </div>
+      <div class="settings-list">
+        <article>
+          <span>Page 1</span>
+          <h3>Connection and layout</h3>
+          <dl>
+            <div><dt>WiFi</dt><dd>Starts or stops the temporary setup network.</dd></div>
+            <div><dt>Demo mode</dt><dd>Shows sample readings on every available screen. Turn this off for real readings.</dd></div>
+            <div><dt>Rotation</dt><dd>Turns the display in 90-degree steps.</dd></div>
+          </dl>
+        </article>
+        <article>
+          <span>Page 2</span>
+          <h3>Screen power</h3>
+          <dl>
+            <div><dt>Timeout</dt><dd>Chooses 10, 30, 60 seconds, or Never.</dd></div>
+            <div><dt>Refresh</dt><dd>Shows shunt readings live or updates them every 15 seconds.</dd></div>
+            <div><dt>Dimming</dt><dd>Cycles through Max, Mid, and Low brightness.</dd></div>
+          </dl>
+        </article>
+        <article>
+          <span>Page 3</span>
+          <h3>What the display shows</h3>
+          <dl>
+            <div><dt>DC Status</dt><dd>Can show fresh Orion DC‑DC status on the battery screen.</dd></div>
+            <div><dt>Labels</dt><dd>Shows or hides small names beside readings.</dd></div>
+            <div><dt>Grid</dt><dd>Shows or hides the lines separating readings.</dd></div>
+          </dl>
+        </article>
+        <article>
+          <span>Page 4</span>
+          <h3>Useful addresses</h3>
+          <dl>
+            <div><dt>Website</dt><dd>chargescreen.co.uk</dd></div>
+            <div><dt>Setup page</dt><dd>192.168.4.1</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <section id="screen-guide" class="guide-section">
+      <div class="guide-heading">
+        <p class="eyebrow">What am I looking at?</p>
+        <h2>Understanding the readings</h2>
+      </div>
+      <div class="reading-grid">
+        <article><strong>%</strong><h3>State of charge</h3><p>Roughly how full the battery is.</p></article>
+        <article><strong>V</strong><h3>Volts</h3><p>The electrical pressure of the battery or device.</p></article>
+        <article><strong>A</strong><h3>Amps</h3><p>How much current is flowing. On battery screens, positive is charging and negative is discharging.</p></article>
+        <article><strong>W / VA</strong><h3>Power</h3><p>How much power is being produced or used.</p></article>
+        <article><strong>Ah</strong><h3>Amp-hours</h3><p>Battery capacity used or remaining, depending on the connected device.</p></article>
+        <article><strong>kWh</strong><h3>Energy</h3><p>Energy produced, commonly the solar yield for today.</p></article>
+      </div>
+
+      <details class="device-details">
+        <summary>Which ChargeScreen page goes with my equipment?</summary>
+        <div class="device-table-wrap">
+          <table class="device-table">
+            <thead><tr><th>Screen</th><th>What it shows</th><th>Key needed?</th></tr></thead>
+            <tbody>
+              <tr><td>SmartShunt / BMV</td><td>Battery percentage, voltage, current, power and amp-hours</td><td>Yes</td></tr>
+              <tr><td>SmartSolar MPPT</td><td>Solar power, battery voltage/current, daily yield and charger state</td><td>Yes</td></tr>
+              <tr><td>Phoenix Inverter</td><td>VA, battery voltage, AC output, state and alarms</td><td>Yes</td></tr>
+              <tr><td>Blue Smart mains charger</td><td>Charge rate, voltage, current, state and errors</td><td>Yes</td></tr>
+              <tr><td>Orion DC‑DC</td><td>Input/output voltage, charge current, power and state</td><td>Yes</td></tr>
+              <tr><td>BatteryProtect</td><td>Input/output voltage, output state, warnings and alarms</td><td>Yes</td></tr>
+              <tr><td>Lynx Smart BMS</td><td>Battery percentage, voltage, current, power and alarms</td><td>Yes</td></tr>
+              <tr><td>DC Energy Meter</td><td>Voltage, current, power and energy totals</td><td>Yes</td></tr>
+              <tr><td>Smart Battery Sense</td><td>Battery voltage, temperature and alarms</td><td>Yes</td></tr>
+              <tr><td>Eco-Worthy, Fogstar, Roamer, ABC-BMS, Daly or Renogy battery</td><td>Battery percentage, voltage, current, power and capacity</td><td>Normally no</td></tr>
+              <tr><td>Mopeka / Lippert sensor</td><td>Tank depth, percentage or litres remaining</td><td>No</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    <section id="problems" class="guide-section">
+      <div class="guide-heading">
+        <p class="eyebrow">Start here if something is wrong</p>
+        <h2>Simple troubleshooting</h2>
+      </div>
+      <div class="problem-list">
+        <details open>
+          <summary>The setup page will not open</summary>
+          <ol>
+            <li>Check that the round screen says WiFi is <strong>On</strong>.</li>
+            <li>Check that your phone is connected to <strong>ChargeScreen</strong>, not your normal Wi‑Fi.</li>
+            <li>Accept the “No internet” warning and stay connected.</li>
+            <li>Turn off mobile data temporarily if your phone keeps switching away.</li>
+            <li>Type <strong>http://192.168.4.1/</strong> directly into your browser’s address bar.</li>
+          </ol>
+        </details>
+        <details>
+          <summary>The screen says “Add key via WiFi”</summary>
+          <p>The selected Victron screen has no Instant Readout key. Open the setup page, find that exact Victron device, paste its key, and press <strong>Save Settings</strong>.</p>
+        </details>
+        <details>
+          <summary>The screen says “Searching” or “No Victron BLE”</summary>
+          <ol>
+            <li>Make sure the Victron device or battery is powered and Bluetooth is enabled.</li>
+            <li>Move ChargeScreen closer to it.</li>
+            <li>For Victron, confirm Instant Readout is enabled and the correct key is saved.</li>
+            <li>For a Bluetooth battery, disconnect its phone app. Some batteries allow only one connection at a time.</li>
+            <li>Wait a minute. Multiple Bluetooth batteries are checked one at a time.</li>
+          </ol>
+        </details>
+        <details>
+          <summary>The screen says “Decode error”</summary>
+          <p>ChargeScreen can hear the device but cannot read the message. For Victron, the usual cause is the wrong Instant Readout key. Copy the key again from the correct device.</p>
+        </details>
+        <details>
+          <summary>I see sample numbers or screens I do not own</summary>
+          <p><strong>Demo mode</strong> is on. Open Settings, tap Demo mode so it shows a dash instead of On, then return to the setup page and add only your own equipment.</p>
+        </details>
+        <details>
+          <summary>The display is black</summary>
+          <p>Touch once and release—the screen may simply be asleep. If it stays black, check the power connection. With the optional rear cable, press the recessed side button after power is applied.</p>
+        </details>
+        <details>
+          <summary>An alarm is flashing</summary>
+          <p>ChargeScreen has received a warning or error from supported Victron equipment. Read the reason at the bottom and check the original equipment. The alert clears when the connected device reports that the problem has cleared.</p>
+          <p class="safety-note"><strong>Important:</strong> ChargeScreen alarm support is still being tested. Never use it as your only safety or alarm system.</p>
+        </details>
+      </div>
+    </section>
+
+    <section id="updates" class="guide-section split-guide">
+      <div class="guide-heading">
+        <p class="eyebrow">Occasional maintenance</p>
+        <h2>Update the firmware</h2>
+        <p>Only install the latest Beta firmware made for ChargeScreen’s ESP32‑C3 hardware.</p>
+      </div>
+      <div class="guide-card">
+        <ol class="compact-steps">
+          <li>Download the <strong>latest Beta firmware</strong> from the ChargeScreen website. Its filename starts with <strong>Beta</strong> followed by the version number.</li>
+          <li>Open ChargeScreen’s temporary Wi‑Fi setup page.</li>
+          <li>Scroll to <strong>Firmware update</strong> and choose the downloaded file.</li>
+          <li>Press <strong>Upload Firmware</strong>.</li>
+          <li>Keep the power connected and wait for ChargeScreen to restart.</li>
+          <li>Start setup Wi‑Fi again if you need to return to the setup page.</li>
+        </ol>
+        <div class="plain-warning">
+          <strong>Do not unplug it during an update.</strong>
+          <span>Removing power can leave the device needing a USB reflash.</span>
+        </div>
+        <a class="button primary full-button" href="../#downloads">Get the latest firmware</a>
+      </div>
+    </section>
+
+    <section id="ble-capture" class="guide-section optional-section">
+      <div class="guide-heading">
+        <p class="eyebrow">Advanced and optional</p>
+        <h2>BLE Capture</h2>
+        <p>You do not need this if your equipment is working.</p>
+      </div>
+      <div class="guide-card">
+        <p>BLE Capture records nearby Bluetooth messages so an unsupported device can be investigated.</p>
+        <ol class="compact-steps">
+          <li>Disconnect phones and apps from the battery or accessory.</li>
+          <li>Place ChargeScreen close to that device.</li>
+          <li>Open the setup page and press <strong>Start 5 Minute BLE Capture</strong>.</li>
+          <li>Let it finish, or choose <strong>Stop and Save</strong>.</li>
+          <li>Download the CSV from the setup page.</li>
+          <li>Email it to <a href="mailto:blecapture@chargescreen.co.uk">blecapture@chargescreen.co.uk</a> with the brand, exact model, and readings you expected.</li>
+        </ol>
+        <p class="small-note">The file includes Bluetooth broadcasts from nearby devices such as watches, phones, TVs, batteries and sensors. Most of this data is encrypted, but it will still appear in the file.</p>
+      </div>
+    </section>
+
+    <section class="guide-section support-strip">
+      <div>
+        <p class="eyebrow">Still stuck?</p>
+        <h2>Ask for help</h2>
+        <p>Include a photo of the ChargeScreen message, your equipment brand and exact model, and the firmware version if you know it.</p>
+      </div>
+      <div class="support-actions">
+        <a class="button primary" href="mailto:contact@chargescreen.co.uk">Email support</a>
+        <a class="button secondary" href="https://www.t6forum.com/threads/standalone-esp32-ble-battery-display-for-victron-systems.66515/">Visit the support thread</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>ChargeScreen user guide</span>
+    <a href="../">Back to ChargeScreen.co.uk</a>
+  </footer>
+</body>
+</html>
