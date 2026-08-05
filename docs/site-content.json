@@ -17,7 +17,7 @@
     "ble_privacy": "Privacy note: the CSV may include packets from nearby watches, phones, TVs, sensors, and batteries. Most of it is encrypted or only useful to the original device, but it will still appear in the file. Battery encryption codes are only used to decode the battery packets in the capture."
   },
   "purchase": {
-    "text": "ChargeScreen units are available premade and supplied with the firmware already installed. The device is £40, with UK postage added at checkout. Shipping is currently available to UK addresses only.",
+    "text": "ChargeScreen units are available premade and supplied with the firmware already installed. The device is £40, with UK postage added at checkout. Shipping is currently available to UK addresses only.\n\n\n**** PLEASE NOTE *******\nI am away at a music festival between Thursday 6th August 2026 to Monday 10th August 2026 (Bloodstock). I will pick up any orders from Monday. ",
     "url": "Chargescreen.co.uk",
     "button_text": "Chargescreen.co.uk"
   }
