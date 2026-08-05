@@ -26,10 +26,12 @@ content:
             label: Short release summary
             type: text
             required: true
+            description: "Supports paragraphs, bullet lines starting with - or *, and **bold** text."
           - name: changes
             label: Release table changes
             type: text
             required: true
+            description: "Supports paragraphs, bullet lines starting with - or *, and **bold** text."
       - name: contact
         label: Email addresses
         type: object

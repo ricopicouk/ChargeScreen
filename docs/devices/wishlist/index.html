@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Future Device Wishlist - ChargeScreen</title>
+  <meta name="description" content="Future ChargeScreen device support wishlist and request form.">
+  <meta property="og:title" content="ChargeScreen Future Device Wishlist">
+  <meta property="og:description" content="Devices requested for future ChargeScreen support, with a way to send useful details for review.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../../assets/chargescreen-device-logo.png?v=3">
+  <link rel="icon" href="../../assets/chargescreen-device-logo.png?v=3">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Wishlist navigation">
+      <a class="brand" href="../../" aria-label="ChargeScreen home">
+        <span>ChargeScreen</span>
+      </a>
+      <div class="nav-links">
+        <a href="../../">Home</a>
+        <a href="../../guide/">User guide</a>
+        <a href="../">Supported devices</a>
+        <a href="./">Wishlist</a>
+        <a href="../../#downloads">Firmware</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top" class="support-main">
+    <section class="support-hero">
+      <div>
+        <p class="eyebrow">Future support</p>
+        <h1>Device wishlist</h1>
+        <p class="lede">A simple place to track devices people would like ChargeScreen to support in future, and to collect the useful details needed before anything is added.</p>
+      </div>
+      <div class="support-note">
+        <h2>Useful info</h2>
+        <p>The most helpful request includes the brand, exact model, app name, BLE capture, and a screenshot or list of the values shown in the original app. Requests are not a promise of future support.</p>
+      </div>
+    </section>
+
+    <section class="section compact-top">
+      <div id="wishlist-results" class="support-grid"></div>
+    </section>
+
+    <section class="section split-section alt">
+      <div class="section-heading">
+        <p class="eyebrow">Request a device</p>
+        <h2>Send a future support request</h2>
+        <p>Requests should be reviewed before anything appears on the website. ChargeScreen is intended as a monitor, not a replacement control app.</p>
+      </div>
+      <form class="tip-form" method="post" data-wishlist-form>
+        <input type="hidden" name="source" value="ChargeScreen wishlist page">
+
+        <label>
+          Device brand and model
+          <input name="device" type="text" required placeholder="Example: EcoFlow Delta 2 or Bluetooth tank sensor">
+        </label>
+
+        <label>
+          App used with the device
+          <input name="app" type="text" placeholder="Example: manufacturer's app name">
+        </label>
+
+        <label>
+          Your name
+          <input name="name" type="text" autocomplete="name">
+        </label>
+
+        <label>
+          Your email
+          <input name="email" type="email" autocomplete="email">
+        </label>
+
+        <label>
+          Details that might help
+          <textarea name="details" rows="6" placeholder="What does the app show? Can you provide a BLE capture?"></textarea>
+        </label>
+
+        <p id="wishlist-form-message" class="form-note">Requests are reviewed before anything appears on the website.</p>
+        <button class="button primary" type="submit">Send request</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>ChargeScreen wishlist</span>
+    <a href="../">Back to supported devices</a>
+  </footer>
+  <script src="../devices-data.js"></script>
+  <script src="../wishlist.js"></script>
+</body>
+</html>

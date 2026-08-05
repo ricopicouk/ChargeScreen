@@ -1,24 +1,24 @@
-{
-  "firmware": {
-    "version": "Beta 8.26 23/07/2026",
-    "download_url": "https://github.com/ricopicouk/ChargeScreen/releases/download/Beta8.26/Beta8.26.bin",
-    "summary": "Beta 8 is a substantial update over Beta 7, adding new device support, much more personalisation and several important fixes.",
-    "changes": "ChargeScreen Beta 8.26\n\nAdded experimental support for Daly BMS batteries, including Foxygen batteries.\n\nAdded experimental support for Renogy Bluetooth batteries.\n\nRear BOOT button controls:\n\nShort press: next dashboard screen.\n\nHold for two seconds: Wi‑Fi hotspot on/off.\n\nImproved Wi‑Fi setup-page usability, including nearer Save Settings controls and moving Clear Saved Keys beside device/key setup.\n\nUpdated BLE capture instructions to request only captures for unsupported devices, with the useful model and live-reading information needed for compatibility work.\n\nNotes\n\nDaly/Foxygen and Renogy support are experimental and need confirmation against more real batteries.\n\n\n\n\n\n\n\n\nChargeScreen Beta 8\n\nFirmware 8.18 adds to fixes for Fogstar batteries (4% issue).\n\n\n\n\nBeta 8 is a substantial update over Beta 7, adding new device support, much more personalisation and several important fixes.\n\nNew device support\n\n    ABC-BMS battery family, including compatible ABC, SOK, NB and Hoover app devices\n    Victron Phoenix Inverter monitoring, showing power, battery voltage, AC output, operating state and alarms\n\nMore personalisation\n\n    Give each screen or connected device its own custom name\n    Customise the colours of individual screens\n    Multiple devices of the same type can have their own names, colours and settings\n\nImproved alarm handling\n\n    Victron alarms are now shown visually on ChargeScreen\n    When an alarm is detected, ChargeScreen automatically takes you to the affected device’s screen\n    Alarm information is displayed clearly so it is easier to see which device needs attention\n\nBattery improvements and bug fixes\n\n    Fixed several problems when using multiple Bluetooth batteries\n    Fogstar state-of-charge now follows the percentage reported by the battery, preventing incorrect readings above 100%\n    Improved Roamer compatibility\n    Improved battery discovery, selection and connection handling\n\nThe alarm feature is still being tested, so ChargeScreen should not be used as the only warning or safety system. Always continue to rely on the protection and alarm features built into your equipment.\n\nThank you to everyone who has tested the firmware, reported problems and supplied Bluetooth captures.\nThose reports have been a huge help in improving Beta 8."
-  },
-  "contact": {
-    "general_email": "contact@chargescreen.co.uk",
-    "ble_email": "blecapture@chargescreen.co.uk"
-  },
-  "instructions": {
-    "power": "Power ChargeScreen using USB-C, or if you bought a rear power supply cable, carefully plug it in and make sure the notch on the cable lines up with the gap on the plug.",
-    "victron_intro": "ChargeScreen reads Victron Instant Readout Bluetooth adverts. Those adverts are encrypted, so each Victron device needs its own Instant Readout encryption data.",
-    "victron_first_step": "Open the VictronConnect app near your Victron device.",
-    "ble_intro": "BLE capture records nearby Bluetooth Low Energy adverts for 5 minutes. It is useful when adding support for batteries or accessories that do not decode correctly yet.",
-    "ble_privacy": "Privacy note: the CSV may include packets from nearby watches, phones, TVs, sensors, and batteries. Most of it is encrypted or only useful to the original device, but it will still appear in the file. Battery encryption codes are only used to decode the battery packets in the capture."
-  },
-  "purchase": {
-    "text": "ChargeScreen units are available premade and supplied with the firmware already installed. The device is £40, with UK postage added at checkout. Shipping is currently available to UK addresses only.\n\n\n**** PLEASE NOTE *******\nI am away at a music festival between Thursday 6th August 2026 to Monday 10th August 2026 (Bloodstock). I will pick up any orders from Monday. ",
-    "url": "Chargescreen.co.uk",
-    "button_text": "Chargescreen.co.uk"
-  }
+﻿{
+    "firmware":  {
+                     "version":  "Beta 9.14 05/08/2026",
+                     "download_url":  "https://github.com/ricopicouk/ChargeScreen/releases/download/Beta9.14/Beta9.14.bin",
+                     "summary":  "**Beta 9** is mainly a backend update to the way the web setup interface is built. That gives ChargeScreen more room to expand, while also maturing the firmware with clearer diagnostics and more device support.",
+                     "changes":  "ChargeScreen Beta 9\n\n**Main change**\n\n- The WiFi setup page has been reworked behind the scenes so it is easier to expand with more device types and settings.\n- The firmware is continuing to mature with better diagnostics and more reliable setup behaviour.\n\n**Device support**\n\n- Added Ruuvi sensor support for temperature, humidity and pressure.\n- Added experimental Renogy Bluetooth battery support.\n- Added experimental Daly / Foxygen battery support.\n- Improved Mopeka handling where saved Bluetooth addresses could stop a sensor reconnecting after an update.\n\n**Setup and usability**\n\n- Auto-rotate has been renamed to Auto-Swipe to make the setting clearer.\n- Auto-Swipe can now be changed from both the WiFi setup page and the ChargeScreen settings screen.\n- Weak Bluetooth signal warnings are now off by default and can be enabled from the WiFi setup page when debugging.\n\n**BLE capture**\n\n- Starting a new BLE capture now clears old capture files first.\n- Added a WiFi setup-page button to clear BLE capture files.\n- Added clearer warnings if BLE capture hits a storage problem, with advice to use a shorter capture time."
+                 },
+    "contact":  {
+                    "general_email":  "contact@chargescreen.co.uk",
+                    "ble_email":  "blecapture@chargescreen.co.uk"
+                },
+    "instructions":  {
+                         "power":  "Power ChargeScreen using USB-C, or if you bought a rear power supply cable, carefully plug it in and make sure the notch on the cable lines up with the gap on the plug.",
+                         "victron_intro":  "ChargeScreen reads Victron Instant Readout Bluetooth adverts. Those adverts are encrypted, so each Victron device needs its own Instant Readout encryption data.",
+                         "victron_first_step":  "Open the VictronConnect app near your Victron device.",
+                         "ble_intro":  "BLE capture records nearby Bluetooth Low Energy adverts for 5 minutes. It is useful when adding support for batteries or accessories that do not decode correctly yet.",
+                         "ble_privacy":  "Privacy note: the CSV may include packets from nearby watches, phones, TVs, sensors, and batteries. Most of it is encrypted or only useful to the original device, but it will still appear in the file. Battery encryption codes are only used to decode the battery packets in the capture."
+                     },
+    "purchase":  {
+                     "text":  "ChargeScreen units are available premade and supplied with the firmware already installed. The device is £40, with UK postage added at checkout. Shipping is currently available to UK addresses only.\n\n**** PLEASE NOTE *******\nI am away at a music festival between Thursday 6th August 2026 and Monday 10th August 2026 (Bloodstock). I will pick up any orders from Monday.",
+                     "url":  "Chargescreen.co.uk",
+                     "button_text":  "Chargescreen.co.uk"
+                 }
 }

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Supported Devices - ChargeScreen</title>
+  <meta name="description" content="Supported ChargeScreen devices, setup notes, connection tips, and compatibility status.">
+  <meta property="og:title" content="ChargeScreen Supported Devices">
+  <meta property="og:description" content="Supported battery, Victron, tank and sensor devices with setup notes and tips.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../assets/chargescreen-device-logo.png?v=3">
+  <link rel="icon" href="../assets/chargescreen-device-logo.png?v=3">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Supported devices navigation">
+      <a class="brand" href="../" aria-label="ChargeScreen home">
+        <span>ChargeScreen</span>
+      </a>
+      <div class="nav-links">
+        <a href="../">Home</a>
+        <a href="../guide/">User guide</a>
+        <a href="./">Supported devices</a>
+        <a href="wishlist/">Wishlist</a>
+        <a href="../#downloads">Firmware</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top" class="support-main">
+    <section class="support-hero">
+      <div>
+        <p class="eyebrow">Compatibility and setup help</p>
+        <h1>Supported devices</h1>
+        <p class="lede">Find what ChargeScreen currently supports, what each device can show, and the practical setup notes that usually get it connected cleanly.</p>
+      </div>
+      <div class="support-tools" aria-label="Device search">
+        <label for="device-filter">Find a device</label>
+        <input id="device-filter" type="search" placeholder="Search Victron, Fogstar, Renogy...">
+        <p id="device-count" class="small-note">Loading devices...</p>
+      </div>
+    </section>
+
+    <section class="section compact-top">
+      <div class="support-note">
+        <h2>Quick rule</h2>
+        <p>Victron devices normally need their Instant Readout key from VictronConnect. Supported Bluetooth batteries and sensors normally do not need a key, but some batteries only allow one device or phone app to connect at a time.</p>
+      </div>
+    </section>
+
+    <section class="section compact-top">
+      <div id="device-results" class="support-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="section support-strip">
+      <div>
+        <p class="eyebrow">Something missing?</p>
+        <h2>Request future support</h2>
+        <p>Use the wishlist page for devices that are not listed yet, especially if you can provide a BLE capture and a list of what the original app displays.</p>
+      </div>
+      <div class="support-actions">
+        <a class="button primary" href="wishlist/">Open wishlist</a>
+        <a class="button secondary" href="mailto:blecapture@chargescreen.co.uk">Send BLE capture</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>ChargeScreen supported devices</span>
+    <a href="../">Back to ChargeScreen.co.uk</a>
+  </footer>
+  <script src="devices-data.js"></script>
+  <script src="devices-index.js"></script>
+</body>
+</html>

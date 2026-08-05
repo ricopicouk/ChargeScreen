@@ -26,6 +26,7 @@
       <div class="nav-links">
         <a href="#first-setup">First setup</a>
         <a href="#everyday-use">Everyday use</a>
+        <a href="#powering">Power</a>
         <a href="#screen-guide">Screen guide</a>
         <a href="#problems">Help</a>
         <a href="#updates">Updates</a>
@@ -86,7 +87,7 @@
         <li>
           <div class="step-copy">
             <h3>Turn on setup Wi‑Fi</h3>
-            <p>Tap the row marked <strong>WiFi</strong>. It should change to <strong>On</strong>.</p>
+            <p>Tap the row marked <strong>WiFi</strong>. It should change to <strong>On</strong> and create a temporary WiFi hotspot called <strong>ChargeScreen</strong>. Connect to that hotspot, then open <strong>192.168.4.1</strong>.</p>
             <p class="small-note">Shortcut: hold the rear button for two seconds to turn setup Wi‑Fi on or off. Never hold that button while switching the power on.</p>
           </div>
         </li>
@@ -165,7 +166,7 @@
         <article>
           <span class="control-icon" aria-hidden="true">↔</span>
           <h3>Change screen</h3>
-          <p>Swipe left or right. A short press of the rear button also moves to the next screen.</p>
+          <p>Swipe left or right. A short press of the rear button also moves to the next screen. If Auto-Swipe is on, ChargeScreen will move through the enabled screens by itself.</p>
         </article>
         <article>
           <span class="control-icon dots-icon" aria-hidden="true">•••</span>
@@ -180,6 +181,27 @@
       </div>
     </section>
 
+    <section id="powering" class="guide-section split-guide">
+      <div class="guide-heading">
+        <p class="eyebrow">Power options</p>
+        <h2>Powering the display</h2>
+        <p>ChargeScreen can be powered from USB-C or from the optional rear power cable.</p>
+      </div>
+      <div class="guide-card">
+        <h3>USB-C</h3>
+        <p>For the simplest setup, power ChargeScreen from its USB-C socket using a normal USB power supply.</p>
+
+        <h3>Rear power cable</h3>
+        <p>The rear power cable is supplied with a female connector on one end and a male connector on the other. The female connection should be connected to your power supply, between <strong>5V and 23V</strong>.</p>
+        <p>You may wish to snip off the female connector and use a Wago connector, or similar, to splice into a suitable source of power.</p>
+        <p>ChargeScreen uses around <strong>0.3W at idle</strong>, and around <strong>0.5W with maximum screen brightness and WiFi on</strong>, so a <strong>1A fuse</strong> is fine.</p>
+        <div class="plain-warning">
+          <strong>Check polarity before powering it.</strong>
+          <span>The power connector has reverse polarity protection, but please still connect positive to red and negative to black.</span>
+        </div>
+      </div>
+    </section>
+
     <section id="settings" class="guide-section split-guide">
       <div class="guide-heading">
         <p class="eyebrow">The round screen</p>
@@ -191,7 +213,7 @@
           <span>Page 1</span>
           <h3>Connection and layout</h3>
           <dl>
-            <div><dt>WiFi</dt><dd>Starts or stops the temporary setup network.</dd></div>
+            <div><dt>WiFi</dt><dd>Starts or stops the temporary setup hotspot called <strong>ChargeScreen</strong>. Connect your phone to that hotspot, then open <strong>192.168.4.1</strong> to change settings.</dd></div>
             <div><dt>Demo mode</dt><dd>Shows sample readings on every available screen. Turn this off for real readings.</dd></div>
             <div><dt>Rotation</dt><dd>Turns the display in 90-degree steps.</dd></div>
           </dl>
@@ -200,7 +222,7 @@
           <span>Page 2</span>
           <h3>Screen power</h3>
           <dl>
-            <div><dt>Timeout</dt><dd>Chooses 10, 30, 60 seconds, or Never.</dd></div>
+            <div><dt>Timeout</dt><dd>Controls how long the screen stays awake after the last touch. For example, 30 seconds means the display will dim or sleep 30 seconds after you stop using it. Never keeps the screen on.</dd></div>
             <div><dt>Refresh</dt><dd>Shows shunt readings live or updates them every 15 seconds.</dd></div>
             <div><dt>Dimming</dt><dd>Cycles through Max, Mid, and Low brightness.</dd></div>
           </dl>
@@ -209,7 +231,8 @@
           <span>Page 3</span>
           <h3>What the display shows</h3>
           <dl>
-            <div><dt>DC Status</dt><dd>Can show fresh Orion DC‑DC status on the battery screen.</dd></div>
+            <div><dt>DC Status</dt><dd>Can show fresh Orion DC-DC status on the battery screen. For example, it may show states such as Off, Charging, Bulk, Absorption, Float, or an error/warning state depending on what the charger reports.</dd></div>
+            <div><dt>Auto-Swipe</dt><dd>Automatically changes the displayed screen after a short delay. This is useful if you want ChargeScreen to cycle through battery, solar, charger and sensor pages without touching it.</dd></div>
             <div><dt>Labels</dt><dd>Shows or hides small names beside readings.</dd></div>
             <div><dt>Grid</dt><dd>Shows or hides the lines separating readings.</dd></div>
           </dl>

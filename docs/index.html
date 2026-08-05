@@ -24,7 +24,8 @@
       </a>
       <div class="nav-links">
         <a href="guide/">User guide</a>
-        <a href="#devices">Supported devices</a>
+        <a href="devices/">Supported devices</a>
+        <a href="devices/wishlist/">Wishlist</a>
         <a href="#victron">Victron keys</a>
         <a href="#ble">BLE capture</a>
         <a href="https://youtu.be/nBTKXf0SJtU">Video</a>
@@ -74,25 +75,25 @@
 
     <section id="features" class="section">
       <div class="section-heading">
-        <p class="eyebrow">Beta 8</p>
-        <h2>More personal, more compatible, and easier to monitor</h2>
+        <p class="eyebrow">Beta 9</p>
+        <h2>Growing the setup page and device support</h2>
       </div>
       <div class="feature-grid">
         <article>
-          <h3>Make every screen yours</h3>
-          <p>Give each connected device its own name and choose individual colours for its screen. Multiple devices of the same type can each have a clear identity.</p>
+          <h3>Ready for bigger setups</h3>
+          <p>Beta 9 mainly rebuilds how the WiFi setup page is made, giving ChargeScreen more room to grow without making the setup page harder to use.</p>
         </article>
         <article>
-          <h3>Clearer alarm alerts</h3>
-          <p>Victron alarms now produce a visual warning and take you directly to the affected device screen. Alarm support is still being tested and should not replace the equipment's own safety systems.</p>
+          <h3>Clearer diagnostics</h3>
+          <p>BLE capture handling has been improved, with old captures cleared before a new one starts and clearer warnings if a capture runs into a storage problem.</p>
         </article>
         <article>
-          <h3>More device support</h3>
-          <p>Adds Victron Phoenix Inverter monitoring and support for the ABC-BMS battery family, alongside improved compatibility for Roamer and Fogstar batteries.</p>
+          <h3>More Bluetooth options</h3>
+          <p>Renogy and Daly/Foxygen support are being tested, Ruuvi temperature, humidity and pressure sensors have been added, and Mopeka handling has been tightened up.</p>
         </article>
         <article>
-          <h3>Better multi-device setups</h3>
-          <p>Improved device discovery, selection, and data handling make systems with several batteries or repeated Victron devices more reliable and easier to organise.</p>
+          <h3>Less confusing controls</h3>
+          <p>The old auto-rotate wording has been replaced with Auto-Swipe, with control from both the setup page and the ChargeScreen settings screen.</p>
         </article>
       </div>
     </section>
@@ -142,10 +143,14 @@
           <li>Fogstar Drift Battery</li>
           <li>Roamer Bluetooth Battery</li>
           <li>ABC-BMS Bluetooth Battery family (ABC, SOK, NB and Hoover app devices) <strong>**</strong></li>
+          <li>Daly / Foxygen Bluetooth Battery <strong>**</strong></li>
+          <li>Renogy Bluetooth Battery <strong>**</strong></li>
           <li>Mopeka / Lippert Bluetooth tank sensor</li>
+          <li>Ruuvi temperature, humidity and pressure sensor <strong>**</strong></li>
         </ul>
-        <p class="small-note">Victron devices need their Instant Readout key from VictronConnect. Eco-Worthy, Fogstar, Roamer, ABC-BMS family batteries, and Mopeka devices normally do not need a key.</p>
-        <p class="small-note"><strong>**</strong> ABC-BMS support is new and still being tested across the different ABC, SOK, NB, and Hoover app variants.</p>
+        <p class="small-note">Victron devices need their Instant Readout key from VictronConnect. Most supported Bluetooth batteries and sensors do not need a key, but some allow only one phone or display connection at a time.</p>
+        <p class="small-note"><strong>**</strong> New or experimental support. These devices may need more real-world testing across different models.</p>
+        <p><a class="button secondary" href="devices/">Open the supported devices page</a></p>
       </div>
     </section>
 
@@ -261,7 +266,7 @@
           <div>
             <p class="eyebrow">Latest</p>
             <h3 id="latest-version">Latest firmware</h3>
-            <p id="latest-summary">Moves on from beta 6.33 with the setup builder, multi-device Victron support, Mopeka tank monitoring, and the new larger OTA partition layout.</p>
+            <div id="latest-summary" class="formatted-text">Moves on from beta 6.33 with the setup builder, multi-device Victron support, Mopeka tank monitoring, and the new larger OTA partition layout.</div>
           </div>
           <a id="latest-download" class="button primary" href="https://github.com/ricopicouk/ChargeScreen/releases/latest">Download</a>
         </div>
@@ -279,7 +284,7 @@
               <tr>
                 <td><span id="table-version">Latest firmware</span></td>
                 <td><span class="tag good">Latest</span></td>
-                <td id="table-changes">Adds a clearer Build Your Setup flow, multi-device keyed Victron support, Mopeka tank display options, shunt refresh control, display polish, and the new larger OTA-only partition layout.</td>
+                <td><div id="table-changes" class="formatted-text">Adds a clearer Build Your Setup flow, multi-device keyed Victron support, Mopeka tank display options, shunt refresh control, display polish, and the new larger OTA-only partition layout.</div></td>
                 <td><a id="table-download" href="https://github.com/ricopicouk/ChargeScreen/releases/latest">Firmware</a></td>
               </tr>
             </tbody>
