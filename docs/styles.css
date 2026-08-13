@@ -454,21 +454,6 @@ h3 {
   font-size: 15px;
 }
 
-.stock-note {
-  margin-top: 22px;
-  padding: 20px;
-  background: #effbf4;
-  border: 2px solid var(--green);
-}
-
-.stock-note h3 {
-  font-size: 20px;
-}
-
-.stock-note p,
-.stock-note p:last-child {
-  margin-bottom: 0;
-}
 .customs-note {
   margin-top: 22px;
   padding: 20px;
