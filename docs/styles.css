@@ -435,6 +435,16 @@ h3 {
   display: none;
 }
 
+.europe-edition-wrap {
+  padding: 20px;
+  background: #eef9fb;
+  border: 3px solid var(--teal);
+}
+
+.europe-edition-wrap .eyebrow {
+  margin-bottom: 10px;
+}
+
 .shopify-product-note {
   margin: -8px 0 22px;
   padding: 14px 16px;

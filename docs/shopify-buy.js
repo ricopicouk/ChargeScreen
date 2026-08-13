@@ -1,6 +1,7 @@
 (function () {
   const scriptURL = "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
   const products = [
+    { id: "15979338596684", nodeId: "product-component-europe-edition", hideDescription: true },
     { id: "15892692238668", nodeId: "product-component-1783868010061", hideDescription: true },
     { id: "15892743815500", nodeId: "product-component-1783868059346" },
     { id: "15919333310796", nodeId: "product-component-1784723796823" },
